@@ -1,5 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
-import { NextResponse } from 'next/server'
+import { redirect } from 'next/navigation'
 
 export async function GET(request: Request) {
     const requestUrl = new URL(request.url)
@@ -17,17 +17,17 @@ export async function GET(request: Request) {
 
             if (userError || !user) {
                 console.error('Auth Callback: Exchange successful but no user found', userError)
-                return NextResponse.redirect(`${origin}/login?error=exchange_success_but_no_session`)
+                return redirect(`${origin}/login?error=exchange_success_but_no_session`)
             }
 
-            return NextResponse.redirect(`${origin}${next}`)
+            return redirect(`${origin}${next}`)
         }
 
         console.error('Auth Callback Error:', error)
         // If there's an error, redirect to login with the error
-        return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`)
+        return redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`)
     }
 
     // If no code, redirect to login
-    return NextResponse.redirect(`${origin}/login?error=no_code_provided`)
+    return redirect(`${origin}/login?error=no_code_provided`)
 }
