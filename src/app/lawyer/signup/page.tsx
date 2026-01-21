@@ -1,0 +1,255 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+    Sparkles,
+    Shield,
+    Upload,
+    CheckCircle,
+    ArrowRight,
+    Briefcase,
+    FileText,
+    User,
+    Mail,
+    Phone,
+    MapPin,
+    Loader2,
+} from "lucide-react";
+
+export default function LawyerSignupPage() {
+    const [step, setStep] = useState(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isComplete, setIsComplete] = useState(false);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        // Simulate API call
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setIsComplete(true);
+        }, 2000);
+    };
+
+    if (isComplete) {
+        return (
+            <div className="min-h-screen grid lg:grid-cols-2">
+                <div className="mesh-background" />
+                <div className="hidden lg:flex flex-col justify-center p-16 relative z-10">
+                    <div className="mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-6">
+                            <Sparkles className="w-6 h-6 text-white" />
+                        </div>
+                        <h1 className="text-4xl font-bold text-white mb-4">Welcome to VisaIQ</h1>
+                        <p className="text-xl text-slate-400">Your application is under review.</p>
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-center p-6 lg:p-16 relative z-10 bg-[#0a0a12]/50 backdrop-blur-xl">
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="glass-card p-8 max-w-md w-full text-center"
+                    >
+                        <div className="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
+                            <CheckCircle className="w-10 h-10 text-emerald-400" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-white mb-2">Application Submitted!</h2>
+                        <p className="text-slate-400 mb-8">
+                            Thank you for applying to join VisaIQ. Our team will review your credentials and verify your MARN registration. You will receive an email update within 24-48 hours.
+                        </p>
+                        <a href="/" className="glass-button w-full flex items-center justify-center">
+                            Return Home
+                        </a>
+                    </motion.div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen grid lg:grid-cols-2">
+            <div className="mesh-background" />
+
+            {/* Left Content */}
+            <div className="hidden lg:flex flex-col justify-between p-16 relative z-10">
+                <div>
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-6">
+                        <Sparkles className="w-5 h-5 text-white" />
+                    </div>
+                    <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
+                        Grow your practice with <br />
+                        <span className="gradient-text">intelligent tools.</span>
+                    </h1>
+                    <p className="text-xl text-slate-400 max-w-lg mb-8">
+                        Join Australia's fastest-growing visa platform. access verified leads, streamlined document management, and automated workflow tools.
+                    </p>
+
+                    <div className="space-y-4">
+                        {[
+                            "Direct access to qualified leads",
+                            "Secure document vault for every client",
+                            "Automated status updates & tracking",
+                            "Community authority & verified badge"
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-center gap-3 text-slate-300">
+                                <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                                    <CheckCircle className="w-3 h-3 text-indigo-400" />
+                                </div>
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex gap-4 text-slate-500 text-sm">
+                    <a href="#" className="hover:text-white transition">Terms of Service</a>
+                    <a href="#" className="hover:text-white transition">Privacy Policy</a>
+                </div>
+            </div>
+
+            {/* Right Form */}
+            <div className="flex items-center justify-center p-6 lg:p-16 relative z-10 lg:bg-[#0a0a12]/80 lg:backdrop-blur-xl border-l border-white/5">
+                <div className="w-full max-w-md">
+                    <div className="lg:hidden mb-8">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-4">
+                            <Sparkles className="w-5 h-5 text-white" />
+                        </div>
+                        <h1 className="text-3xl font-bold text-white">Join VisaIQ</h1>
+                    </div>
+
+                    <div className="mb-8 flex items-center gap-2 text-sm">
+                        <span className={`flex items-center justify-center w-6 h-6 rounded-full ${step >= 1 ? "bg-indigo-500 text-white" : "bg-white/10 text-slate-500"}`}>1</span>
+                        <span className={step >= 1 ? "text-white" : "text-slate-500"}>Personal</span>
+                        <div className="w-8 h-px bg-white/10" />
+                        <span className={`flex items-center justify-center w-6 h-6 rounded-full ${step >= 2 ? "bg-indigo-500 text-white" : "bg-white/10 text-slate-500"}`}>2</span>
+                        <span className={step >= 2 ? "text-white" : "text-slate-500"}>Professional</span>
+                    </div>
+
+                    <form onSubmit={step === 2 ? handleSubmit : (e) => { e.preventDefault(); setStep(2); }}>
+                        <AnimatePresence mode="wait">
+                            {step === 1 ? (
+                                <motion.div
+                                    key="step1"
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    className="space-y-4"
+                                >
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-slate-400 mb-1.5">First Name</label>
+                                            <div className="relative">
+                                                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                                <input type="text" className="glass-input pl-10 w-full" placeholder="Jane" required />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-slate-400 mb-1.5">Last Name</label>
+                                            <div className="relative">
+                                                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                                <input type="text" className="glass-input pl-10 w-full" placeholder="Doe" required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Email Address</label>
+                                        <div className="relative">
+                                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                            <input type="email" className="glass-input pl-10 w-full" placeholder="jane@lawfirm.com" required />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Phone Number</label>
+                                        <div className="relative">
+                                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                            <input type="tel" className="glass-input pl-10 w-full" placeholder="+61 400 000 000" required />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Create Password</label>
+                                        <input type="password" className="glass-input w-full" placeholder="••••••••" required />
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        className="w-full glass-button mt-6 flex items-center justify-center gap-2"
+                                    >
+                                        Continue <ArrowRight className="w-4 h-4" />
+                                    </button>
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="step2"
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    className="space-y-4"
+                                >
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-400 mb-1.5">MARN (Migration Agent Registration Number)</label>
+                                        <div className="relative">
+                                            <Shield className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                            <input type="text" className="glass-input pl-10 w-full" placeholder="1234567" required />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Firm Name</label>
+                                        <div className="relative">
+                                            <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                            <input type="text" className="glass-input pl-10 w-full" placeholder="Doe & Associates" required />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-400 mb-1.5">Office Location</label>
+                                        <div className="relative">
+                                            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                                            <input type="text" className="glass-input pl-10 w-full" placeholder="Melbourne, VIC" required />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-400 mb-2">Upload Credentials</label>
+                                        <div className="border border-dashed border-white/20 rounded-xl p-8 text-center hover:bg-white/5 transition cursor-pointer">
+                                            <Upload className="w-8 h-8 text-indigo-400 mx-auto mb-2" />
+                                            <p className="text-sm text-white font-medium">Click to upload documents</p>
+                                            <p className="text-xs text-slate-500 mt-1">Practicing Certificate, Insurance, etc.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4 mt-6">
+                                        <button
+                                            type="button"
+                                            onClick={() => setStep(1)}
+                                            className="px-6 glass-button-secondary"
+                                        >
+                                            Back
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="flex-1 glass-button flex items-center justify-center gap-2"
+                                        >
+                                            {isSubmitting ? (
+                                                <Loader2 className="w-5 h-5 animate-spin" />
+                                            ) : (
+                                                "Submit Application"
+                                            )}
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+}
