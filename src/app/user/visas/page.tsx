@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Search,
@@ -42,7 +42,7 @@ export default function VisaSearch() {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [visas, setVisas] = useState<any[]>([]);
 
-    useState(() => {
+    useEffect(() => {
         getVisas().then(data => {
             if (data) {
                 setVisas(data.map(v => ({
@@ -53,7 +53,7 @@ export default function VisaSearch() {
                 })));
             }
         });
-    });
+    }, []);
 
     // Filter visas based on search and category
     const filteredVisas = visas.filter((visa) => {

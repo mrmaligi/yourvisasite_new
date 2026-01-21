@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Sparkles,
@@ -44,7 +44,7 @@ export default function UserDocuments() {
     const [isUploading, setIsUploading] = useState(false);
 
     // Fetch documents on mount
-    useState(() => {
+    useEffect(() => {
         const fetchDocs = async () => {
             try {
                 const docs = await getDocuments();
@@ -56,7 +56,7 @@ export default function UserDocuments() {
             }
         };
         fetchDocs();
-    }); // using useState initializer as effect equivalent in this snippet context or standard useEffect
+    }, []);
 
     // Compute categories based on fetched documents
     const documentCategories = Object.entries(CATEGORY_CONFIG).map(([id, config]) => {

@@ -3,12 +3,22 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, Chrome, ArrowRight, Shield, Users, Scale } from "lucide-react";
-
-import { signInWithGoogle } from "@/app/actions/auth";
+import { createClient } from "@/utils/supabase/client";
 
 export default function LoginPage() {
     const handleGoogleSignIn = async () => {
-        await signInWithGoogle();
+        const supabase = createClient();
+
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: `${window.location.origin}/auth/callback`,
+            },
+        });
+
+        if (error) {
+            console.error('Error signing in with Google:', error);
+        }
     };
 
     return (
