@@ -2,10 +2,15 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Sparkles, Chrome, ArrowRight, Shield, Users, Scale } from "lucide-react";
+import { Sparkles, Chrome, ArrowRight, Shield, Users, Scale, AlertCircle } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function LoginPage() {
+function LoginForm() {
+    const searchParams = useSearchParams();
+    const error = searchParams.get("error");
+
     const handleGoogleSignIn = async () => {
         const supabase = createClient();
 
@@ -98,6 +103,16 @@ export default function LoginPage() {
                             <p className="text-slate-400">Sign in to continue your visa journey</p>
                         </div>
 
+                        {error && (
+                            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start gap-3">
+                                <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                                <div className="text-sm text-red-200">
+                                    <span className="font-semibold block mb-1">Authentication Error</span>
+                                    {decodeURIComponent(error)}
+                                </div>
+                            </div>
+                        )}
+
                         {/* Google Sign In Button */}
                         <button
                             onClick={handleGoogleSignIn}
@@ -186,5 +201,13 @@ export default function LoginPage() {
                 </motion.div>
             </div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <LoginForm />
+        </Suspense>
     );
 }

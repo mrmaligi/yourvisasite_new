@@ -5,12 +5,21 @@ export async function GET(request: Request) {
     const requestUrl = new URL(request.url)
     const code = requestUrl.searchParams.get('code')
     const origin = requestUrl.origin
+    const next = requestUrl.searchParams.get('next') || '/user/dashboard'
 
     if (code) {
         const supabase = await createClient()
-        await supabase.auth.exchangeCodeForSession(code)
+        const { error } = await supabase.auth.exchangeCodeForSession(code)
+
+        if (!error) {
+            return NextResponse.redirect(`${origin}${next}`)
+        }
+
+        console.error('Auth Callback Error:', error)
+        // If there's an error, redirect to login with the error
+        return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`)
     }
 
-    // Redirect to user dashboard after sign in
-    return NextResponse.redirect(`${origin}/user/dashboard`)
+    // If no code, redirect to login
+    return NextResponse.redirect(`${origin}/login?error=no_code_provided`)
 }
