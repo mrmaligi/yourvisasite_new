@@ -21,6 +21,19 @@ import { getAllLawyers, approveLawyer, rejectLawyer } from "@/app/actions/admin"
 import { useEffect } from "react";
 
 
+interface Lawyer {
+    id: string | number;
+    name: string;
+    firm: string;
+    email: string;
+    marn: string;
+    status: string;
+    joinedDate: string;
+    clients: number;
+    rating: number;
+    specialties: string[];
+}
+
 // Mock lawyers data
 const allLawyers = [
     {
@@ -89,7 +102,7 @@ export default function AdminLawyers() {
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
     const [selectedLawyer, setSelectedLawyer] = useState<number | null>(null);
-    const [allLawyers, setAllLawyers] = useState<any[]>([]);
+    const [allLawyers, setAllLawyers] = useState<Lawyer[]>([]);
 
     useEffect(() => {
         const fetchLawyers = async () => {
@@ -266,7 +279,7 @@ export default function AdminLawyers() {
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
                                                     <span className="text-sm font-bold text-white">
-                                                        {lawyer.name.split(" ").map(n => n[0]).join("")}
+                                                        {lawyer.name.split(" ").map((n: string) => n[0]).join("")}
                                                     </span>
                                                 </div>
                                                 <div>
