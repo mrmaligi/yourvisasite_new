@@ -12,6 +12,14 @@ export async function GET(request: Request) {
         const { error } = await supabase.auth.exchangeCodeForSession(code)
 
         if (!error) {
+            // Verify if session was actually created
+            const { data: { user }, error: userError } = await supabase.auth.getUser()
+
+            if (userError || !user) {
+                console.error('Auth Callback: Exchange successful but no user found', userError)
+                return NextResponse.redirect(`${origin}/login?error=exchange_success_but_no_session`)
+            }
+
             return NextResponse.redirect(`${origin}${next}`)
         }
 
