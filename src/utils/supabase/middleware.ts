@@ -46,6 +46,7 @@ export async function updateSession(request: NextRequest) {
         // no user, redirect to login page
         const url = request.nextUrl.clone()
         url.pathname = '/login'
+        url.searchParams.set('error', 'middleware_no_session')
         return NextResponse.redirect(url)
     }
 
