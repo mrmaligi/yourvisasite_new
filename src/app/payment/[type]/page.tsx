@@ -1,7 +1,8 @@
 "use client";
+import Link from "next/link";
 
 import { use, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
     Sparkles,
     CreditCard,
@@ -20,7 +21,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
     // Mock Product Data
     const product = resolvedParams.type === "premium"
         ? {
-            name: "VisaIQ Premium Access",
+            name: "YourVisaSite Premium Access",
             description: "Unlock full document checklists, examples, and expert guides for your visa application.",
             price: 49.00,
             features: ["Complete Document Vault", "Sample Declarations", "Priority Support", "Application Templates"]
@@ -50,7 +51,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="glass-card p-8 max-w-md w-full text-center"
+                    className="card p-8 max-w-md w-full text-center"
                 >
                     <div className="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
                         <CheckCircle className="w-10 h-10 text-emerald-400" />
@@ -61,7 +62,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                     </p>
                     <button
                         onClick={() => window.location.href = "/user/dashboard"}
-                        className="glass-button w-full"
+                        className="btn-primary w-full"
                     >
                         Go to Dashboard
                     </button>
@@ -74,7 +75,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
         <div className="min-h-screen">
             <div className="mesh-background" />
 
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
@@ -87,10 +88,10 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
 
             <main className="pt-28 pb-16 px-6">
                 <div className="max-w-5xl mx-auto">
-                    <a href="#" onClick={() => window.history.back()} className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8">
+                    <Link href="#" onClick={() => window.history.back()} className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8">
                         <ArrowLeft className="w-5 h-5" />
                         Cancel and Go Back
-                    </a>
+                    </Link>
 
                     <div className="grid lg:grid-cols-2 gap-12">
                         {/* Order Summary */}
@@ -99,7 +100,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                             animate={{ opacity: 1, x: 0 }}
                         >
                             <h2 className="text-2xl font-bold text-white mb-6">Order Summary</h2>
-                            <div className="glass-card p-8 relative overflow-hidden">
+                            <div className="card p-8 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl" />
 
                                 <h3 className="text-xl font-bold text-white mb-2">{product.name}</h3>
@@ -142,14 +143,14 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                             transition={{ delay: 0.1 }}
                         >
                             <h2 className="text-2xl font-bold text-white mb-6">Payment Details</h2>
-                            <div className="glass-card p-8">
+                            <div className="card p-8">
                                 <form onSubmit={handlePayment} className="space-y-6">
                                     <div>
                                         <label className="block text-sm font-medium text-slate-400 mb-2">Cardholder Name</label>
                                         <input
                                             type="text"
                                             placeholder="John Doe"
-                                            className="w-full glass-input"
+                                            className="w-full input-field"
                                             required
                                         />
                                     </div>
@@ -161,7 +162,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                                             <input
                                                 type="text"
                                                 placeholder="0000 0000 0000 0000"
-                                                className="w-full glass-input pl-12"
+                                                className="w-full input-field pl-12"
                                                 required
                                             />
                                         </div>
@@ -173,7 +174,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                                             <input
                                                 type="text"
                                                 placeholder="MM/YY"
-                                                className="w-full glass-input"
+                                                className="w-full input-field"
                                                 required
                                             />
                                         </div>
@@ -184,7 +185,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                                                 <input
                                                     type="text"
                                                     placeholder="123"
-                                                    className="w-full glass-input pl-11"
+                                                    className="w-full input-field pl-11"
                                                     required
                                                 />
                                             </div>
@@ -194,7 +195,7 @@ export default function PaymentPage({ params }: { params: Promise<{ type: string
                                     <button
                                         type="submit"
                                         disabled={isProcessing}
-                                        className="w-full glass-button py-4 mt-4 flex items-center justify-center gap-2 group"
+                                        className="w-full btn-primary py-4 mt-4 flex items-center justify-center gap-2 group"
                                     >
                                         {isProcessing ? (
                                             <>

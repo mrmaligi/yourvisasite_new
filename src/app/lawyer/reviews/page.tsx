@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,12 +11,10 @@ import {
     MessageSquare,
     ThumbsUp,
     Flag,
-    Filter,
     Search,
     TrendingUp,
     Send,
     X,
-    ChevronDown,
 } from "lucide-react";
 
 // Mock reviews data
@@ -104,25 +103,25 @@ export default function LawyerReviews() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                         <span className="px-2 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 text-xs font-medium">LAWYER</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/lawyer/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/lawyer/clients" className="nav-link text-sm font-medium">Clients</a>
-                        <a href="/lawyer/reviews" className="nav-link text-sm font-medium text-white">Reviews</a>
-                        <a href="/lawyer/settings" className="nav-link text-sm font-medium">Settings</a>
+                        <Link href="/lawyer/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/lawyer/clients" className="nav-link text-sm font-medium">Clients</Link>
+                        <Link href="/lawyer/reviews" className="nav-link text-sm font-medium text-white">Reviews</Link>
+                        <Link href="/lawyer/settings" className="nav-link text-sm font-medium">Settings</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -152,7 +151,7 @@ export default function LawyerReviews() {
                         transition={{ delay: 0.1 }}
                         className="grid md:grid-cols-3 gap-4 mb-8"
                     >
-                        <div className="glass-card p-6">
+                        <div className="card p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <p className="text-slate-400">Average Rating</p>
                                 <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center">
@@ -176,7 +175,7 @@ export default function LawyerReviews() {
                             </div>
                         </div>
 
-                        <div className="glass-card p-6">
+                        <div className="card p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <p className="text-slate-400">Total Reviews</p>
                                 <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
@@ -192,7 +191,7 @@ export default function LawyerReviews() {
                             </div>
                         </div>
 
-                        <div className="glass-card p-6">
+                        <div className="card p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <p className="text-slate-400">Response Rate</p>
                                 <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
@@ -215,7 +214,7 @@ export default function LawyerReviews() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="glass-card p-6 mb-8"
+                        className="card p-6 mb-8"
                     >
                         <h2 className="text-lg font-semibold text-white mb-4">Rating Distribution</h2>
                         <div className="space-y-3">
@@ -254,7 +253,7 @@ export default function LawyerReviews() {
                                 placeholder="Search reviews..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-12 pr-4 py-3 glass rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                className="w-full pl-12 pr-4 py-3 input-field rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                             />
                         </div>
                         <div className="flex gap-2">
@@ -264,7 +263,7 @@ export default function LawyerReviews() {
                                     onClick={() => setFilter(f)}
                                     className={`px-4 py-2 rounded-xl text-sm font-medium transition ${filter === f
                                             ? "bg-indigo-500/20 text-white border border-indigo-500/30"
-                                            : "glass text-slate-400 hover:text-white"
+                                            : "card text-slate-400 hover:text-white"
                                         }`}
                                 >
                                     {f === "all" ? "All" : (
@@ -285,7 +284,7 @@ export default function LawyerReviews() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 + index * 0.05 }}
-                                className="glass-card p-6"
+                                className="card p-6"
                             >
                                 <div className="flex items-start justify-between mb-4">
                                     <div className="flex items-center gap-4">

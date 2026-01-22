@@ -59,13 +59,13 @@ export default function UserSettings() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
@@ -76,7 +76,7 @@ export default function UserSettings() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -105,7 +105,7 @@ export default function UserSettings() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
@@ -181,7 +181,7 @@ export default function UserSettings() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
@@ -260,7 +260,7 @@ export default function UserSettings() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
@@ -268,7 +268,7 @@ export default function UserSettings() {
                                 </div>
                                 <div>
                                     <h2 className="text-lg font-semibold text-white">Appearance</h2>
-                                    <p className="text-sm text-slate-400">Customize how VisaIQ looks</p>
+                                    <p className="text-sm text-slate-400">Customize how YourVisaSite looks</p>
                                 </div>
                             </div>
 
@@ -321,7 +321,7 @@ export default function UserSettings() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center">
@@ -372,7 +372,7 @@ export default function UserSettings() {
                                 <LogOut className="w-5 h-5" />
                                 Sign Out
                             </button>
-                            <button className="glass-button">
+                            <button className="btn-primary">
                                 Save Changes
                             </button>
                         </motion.div>

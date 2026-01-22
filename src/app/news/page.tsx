@@ -3,17 +3,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-    Sparkles,
-    PlayCircle,
-    BookOpen,
     MessageCircle,
-    Share2,
     ThumbsUp,
     Search,
-    Filter,
     Shield,
     TrendingUp,
+    Globe,
+    Play
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function NewsPage() {
     const [activeTab, setActiveTab] = useState<"all" | "videos" | "articles">("all");
@@ -75,7 +74,7 @@ export default function NewsPage() {
             id: 3,
             title: "State Nominations Opening Soon for NSW",
             excerpt: "Prepare your documents now. NSW is expected to open their skilled migration program next week with updated lists...",
-            author: "VisaIQ Team",
+            author: "YourVisaSite Team",
             role: "Official Update",
             date: "1 day ago",
             likes: 256,
@@ -86,42 +85,41 @@ export default function NewsPage() {
     ];
 
     return (
-        <div className="min-h-screen">
-            <div className="mesh-background" />
+        <div className="min-h-screen bg-slate-50">
 
             {/* Navigation (Simplified for this page) */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                            <Sparkles className="w-5 h-5 text-white" />
+                        <div className="w-10 h-10 rounded-lg bg-indigo-900 flex items-center justify-center text-white">
+                            <Globe className="w-6 h-6" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ News</span>
+                        <span className="text-2xl font-serif font-bold text-slate-900">YourVisaSite News</span>
                     </div>
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">Tracker</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">Tracker</Link>
                     </div>
                 </div>
             </nav>
 
-            <main className="pt-28 pb-16 px-6">
+            <main className="py-12 px-6">
                 <div className="max-w-7xl mx-auto">
                     {/* Hero Section */}
                     <div className="mb-12 text-center">
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-4xl md:text-5xl font-bold text-white mb-4"
+                            className="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-serif"
                         >
-                            Immigration <span className="gradient-text">Insights</span>
+                            Immigration <span className="text-indigo-700">Insights</span>
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-slate-400 max-w-2xl mx-auto"
+                            className="text-slate-600 max-w-2xl mx-auto"
                         >
                             Stay updated with the latest Australian visa news, policy changes, and expert analysis from verified lawyers.
                         </motion.p>
@@ -130,11 +128,11 @@ export default function NewsPage() {
                     {/* Trending Videos Carousel */}
                     <section className="mb-16">
                         <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                            <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2 font-serif">
                                 <TrendingUp className="w-6 h-6 text-amber-500" />
                                 Trending Analysis
                             </h2>
-                            <button className="text-sm text-indigo-400 hover:text-indigo-300">View All Videos</button>
+                            <button className="text-sm text-indigo-700 hover:text-indigo-900 font-medium">View All Videos</button>
                         </div>
 
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -146,25 +144,26 @@ export default function NewsPage() {
                                     transition={{ delay: index * 0.1 }}
                                     className="group cursor-pointer"
                                 >
-                                    <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
-                                        <img
+                                    <div className="relative aspect-video rounded-xl overflow-hidden mb-4 shadow-md bg-slate-200">
+                                        <Image
                                             src={video.thumbnail}
                                             alt={video.title}
-                                            className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                                            fill
+                                            className="object-cover transition duration-500 group-hover:scale-105"
                                         />
-                                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition flex items-center justify-center">
-                                            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition">
-                                                <PlayCircle className="w-6 h-6 text-white ml-0.5" />
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition flex items-center justify-center">
+                                            <div className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition shadow-lg">
+                                                <Play className="w-5 h-5 text-indigo-600 ml-0.5" />
                                             </div>
                                         </div>
-                                        <div className="absolute bottom-2 right-2 px-2 py-1 rounded-lg bg-black/60 backdrop-blur-md text-xs text-white">
+                                        <div className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/70 backdrop-blur-md text-xs text-white font-medium">
                                             {video.duration}
                                         </div>
                                     </div>
-                                    <h3 className="text-lg font-semibold text-white leading-tight mb-2 group-hover:text-indigo-400 transition">
+                                    <h3 className="text-lg font-bold text-slate-900 leading-tight mb-2 group-hover:text-indigo-700 transition font-serif">
                                         {video.title}
                                     </h3>
-                                    <div className="flex items-center justify-between text-sm text-slate-400">
+                                    <div className="flex items-center justify-between text-sm text-slate-500">
                                         <span>{video.lawyer}</span>
                                         <span>{video.views} views</span>
                                     </div>
@@ -181,9 +180,9 @@ export default function NewsPage() {
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`px-4 py-2 rounded-xl text-sm font-medium capitalize transition ${activeTab === tab
-                                                ? "bg-indigo-500 text-white"
-                                                : "glass text-slate-400 hover:bg-white/10"
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium capitalize transition ${activeTab === tab
+                                                ? "bg-indigo-900 text-white"
+                                                : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
                                             }`}
                                     >
                                         {tab}
@@ -196,7 +195,7 @@ export default function NewsPage() {
                                 <input
                                     type="text"
                                     placeholder="Search topics..."
-                                    className="glass-input pl-10 py-2 w-full md:w-64"
+                                    className="input-field pl-10 py-2 w-full md:w-64"
                                 />
                             </div>
                         </div>
@@ -208,40 +207,40 @@ export default function NewsPage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 + (index * 0.1) }}
-                                    className="glass-card p-6 flex flex-col md:flex-row gap-6 hover:border-indigo-500/30 transition group"
+                                    className="card p-6 flex flex-col md:flex-row gap-6 bg-white hover:border-indigo-200 transition group"
                                 >
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <span className="px-2 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 text-xs font-medium">
+                                            <span className="px-2 py-1 rounded-md bg-indigo-50 text-indigo-700 text-xs font-bold uppercase tracking-wider">
                                                 {article.tag}
                                             </span>
-                                            <span className="text-xs text-slate-500">• {article.date}</span>
+                                            <span className="text-xs text-slate-500 font-medium">• {article.date}</span>
                                         </div>
-                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition">
+                                        <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-indigo-700 transition font-serif">
                                             {article.title}
                                         </h3>
-                                        <p className="text-slate-400 text-sm mb-4 line-clamp-2">
+                                        <p className="text-slate-600 text-sm mb-4 line-clamp-2 leading-relaxed">
                                             {article.excerpt}
                                         </p>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-xs text-white font-bold">
+                                                <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-xs text-indigo-800 font-bold border border-indigo-200">
                                                     {article.author[0]}
                                                 </div>
                                                 <div>
                                                     <div className="flex items-center gap-1.5">
-                                                        <span className="text-sm font-medium text-white">{article.author}</span>
-                                                        {article.verified && <Shield className="w-3 h-3 text-emerald-400" />}
+                                                        <span className="text-sm font-bold text-slate-900">{article.author}</span>
+                                                        {article.verified && <Shield className="w-3 h-3 text-emerald-600" />}
                                                     </div>
                                                     <span className="text-xs text-slate-500">{article.role}</span>
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-4 text-slate-400">
-                                                <button className="flex items-center gap-1.5 text-xs hover:text-white transition">
+                                            <div className="flex items-center gap-4 text-slate-500">
+                                                <button className="flex items-center gap-1.5 text-xs hover:text-indigo-700 transition font-medium">
                                                     <ThumbsUp className="w-4 h-4" />
                                                     {article.likes}
                                                 </button>
-                                                <button className="flex items-center gap-1.5 text-xs hover:text-white transition">
+                                                <button className="flex items-center gap-1.5 text-xs hover:text-indigo-700 transition font-medium">
                                                     <MessageCircle className="w-4 h-4" />
                                                     {article.comments}
                                                 </button>

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,15 +9,12 @@ import {
     User,
     Clock,
     TrendingUp,
-    TrendingDown,
-    Calendar,
     Plus,
     CheckCircle,
     XCircle,
     MinusCircle,
     Send,
     Info,
-    ChevronDown,
     Award,
 } from "lucide-react";
 
@@ -100,25 +98,25 @@ export default function LawyerTracker() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                         <span className="px-2 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 text-xs font-medium">LAWYER</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/lawyer/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/lawyer/clients" className="nav-link text-sm font-medium">Clients</a>
-                        <a href="/lawyer/tracker" className="nav-link text-sm font-medium text-white">Tracker</a>
-                        <a href="/lawyer/settings" className="nav-link text-sm font-medium">Settings</a>
+                        <Link href="/lawyer/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/lawyer/clients" className="nav-link text-sm font-medium">Clients</Link>
+                        <Link href="/lawyer/tracker" className="nav-link text-sm font-medium text-white">Tracker</Link>
+                        <Link href="/lawyer/settings" className="nav-link text-sm font-medium">Settings</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -144,7 +142,7 @@ export default function LawyerTracker() {
                             </div>
                             <button
                                 onClick={() => setShowForm(!showForm)}
-                                className="glass-button flex items-center gap-2"
+                                className="btn-primary flex items-center gap-2"
                             >
                                 <Plus className="w-4 h-4" />
                                 New Entry
@@ -159,21 +157,21 @@ export default function LawyerTracker() {
                         transition={{ delay: 0.1 }}
                         className="grid grid-cols-3 gap-4 mb-8"
                     >
-                        <div className="glass-card p-5">
+                        <div className="card p-5">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="text-slate-400 text-sm">Total Contributions</p>
                                 <TrendingUp className="w-5 h-5 text-indigo-400" />
                             </div>
                             <p className="text-3xl font-bold text-white">{totalContributions}</p>
                         </div>
-                        <div className="glass-card p-5">
+                        <div className="card p-5">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="text-slate-400 text-sm">Verified</p>
                                 <CheckCircle className="w-5 h-5 text-emerald-400" />
                             </div>
                             <p className="text-3xl font-bold text-emerald-400">{verifiedContributions}</p>
                         </div>
-                        <div className="glass-card p-5">
+                        <div className="card p-5">
                             <div className="flex items-center justify-between mb-3">
                                 <p className="text-slate-400 text-sm">Contribution Rank</p>
                                 <Award className="w-5 h-5 text-amber-400" />
@@ -187,7 +185,7 @@ export default function LawyerTracker() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="glass-card p-5 mb-8 bg-indigo-500/10 border border-indigo-500/20"
+                        className="card p-5 mb-8 bg-indigo-500/10 border border-indigo-500/20"
                     >
                         <div className="flex items-start gap-4">
                             <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
@@ -213,7 +211,7 @@ export default function LawyerTracker() {
                                 exit={{ height: 0, opacity: 0 }}
                                 className="overflow-hidden mb-8"
                             >
-                                <div className="glass-card p-6">
+                                <div className="card p-6">
                                     <h2 className="text-lg font-semibold text-white mb-6">Submit New Processing Time</h2>
 
                                     <div className="space-y-4">
@@ -311,7 +309,7 @@ export default function LawyerTracker() {
                                         <div className="flex gap-3 pt-2">
                                             <button
                                                 onClick={() => setShowForm(false)}
-                                                className="flex-1 py-3 rounded-xl glass hover:bg-white/10 text-slate-300 transition"
+                                                className="flex-1 py-3 rounded-xl card hover:bg-white/10 text-slate-300 transition"
                                             >
                                                 Cancel
                                             </button>
@@ -340,7 +338,7 @@ export default function LawyerTracker() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.4 + index * 0.05 }}
-                                    className="glass-card p-5"
+                                    className="card p-5"
                                 >
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-4">

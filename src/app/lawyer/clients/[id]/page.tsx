@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { use, useState } from "react";
 import { motion } from "framer-motion";
@@ -12,7 +13,6 @@ import {
     MessageSquare,
     CheckCircle,
     Clock,
-    AlertCircle,
     ChevronDown,
     ChevronRight,
     Send,
@@ -21,7 +21,6 @@ import {
 
 export default function ClientDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const resolvedParams = use(params);
-    const [activeTab, setActiveTab] = useState<"documents" | "notes" | "timeline">("documents");
     const [expandedFolder, setExpandedFolder] = useState<string | null>("identity");
 
     // Mock Client Data
@@ -61,7 +60,7 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
             <div className="mesh-background" />
 
             {/* Sidebar (Simplified Lawyer) */}
-            <aside className="fixed left-0 top-0 bottom-0 w-64 glass border-r border-white/5 z-40 hidden lg:flex flex-col">
+            <aside className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-white/5 z-40 hidden lg:flex flex-col">
                 <div className="p-6 flex items-center gap-3 mb-8">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                         <Sparkles className="w-4 h-4 text-white" />
@@ -69,22 +68,22 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
                     <span className="text-lg font-bold text-white">LawyerPortal</span>
                 </div>
                 <nav className="flex-1 px-4 space-y-2">
-                    <a href="/lawyer/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
+                    <Link href="/lawyer/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
                         <Shield className="w-5 h-5" />
                         Dashboard
-                    </a>
-                    <a href="/lawyer/clients" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 font-medium">
+                    </Link>
+                    <Link href="/lawyer/clients" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 font-medium">
                         <FolderOpen className="w-5 h-5" />
                         My Clients
-                    </a>
+                    </Link>
                 </nav>
             </aside>
 
             <main className="lg:ml-64 p-8 pt-24 lg:pt-8 min-h-screen">
-                <a href="/lawyer/clients" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8">
+                <Link href="/lawyer/clients" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8">
                     <ArrowLeft className="w-5 h-5" />
                     Back to Client List
-                </a>
+                </Link>
 
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
                     <div>
@@ -97,11 +96,11 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
                         </div>
                     </div>
                     <div className="flex gap-3">
-                        <button className="glass-button-secondary flex items-center gap-2">
+                        <button className="btn-secondary flex items-center gap-2">
                             <MessageSquare className="w-4 h-4" />
                             Message
                         </button>
-                        <button className="glass-button flex items-center gap-2">
+                        <button className="btn-primary flex items-center gap-2">
                             <CheckCircle className="w-4 h-4" />
                             Mark Review Complete
                         </button>
@@ -115,7 +114,7 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <div className="flex items-center justify-between mb-2">
                                 <h3 className="font-semibold text-white">Application Completeness</h3>
@@ -127,14 +126,14 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
                         </motion.div>
 
                         {/* Document Vault View */}
-                        <div className="glass-card p-6 min-h-[500px]">
+                        <div className="card p-6 min-h-[500px]">
                             <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                                 <FolderOpen className="w-5 h-5 text-indigo-400" />
                                 Document Vault
                             </h2>
 
                             <div className="space-y-4">
-                                {client.folders.map((folder, index) => (
+                                {client.folders.map((folder) => (
                                     <div key={folder.id} className="border border-white/5 rounded-2xl overflow-hidden">
                                         <button
                                             onClick={() => setExpandedFolder(expandedFolder === folder.id ? null : folder.id)}
@@ -199,7 +198,7 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <h3 className="font-semibold text-white mb-4">Case Notes</h3>
                             <div className="h-64 overflow-y-auto space-y-4 mb-4 pr-2">
@@ -216,7 +215,7 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
                                 <input
                                     type="text"
                                     placeholder="Add a note..."
-                                    className="w-full glass-input pr-10 text-sm"
+                                    className="w-full input-field pr-10 text-sm"
                                 />
                                 <button className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition">
                                     <Send className="w-3 h-3 text-white" />
@@ -228,7 +227,7 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <h3 className="font-semibold text-white mb-4">Next Steps</h3>
                             <ul className="space-y-3">

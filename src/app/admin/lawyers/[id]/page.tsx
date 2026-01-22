@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { use, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -57,7 +58,7 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
             <div className="mesh-background" />
 
             {/* Sidebar (Simplified Admin) */}
-            <aside className="fixed left-0 top-0 bottom-0 w-64 glass border-r border-white/5 z-40 hidden lg:flex flex-col">
+            <aside className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-white/5 z-40 hidden lg:flex flex-col">
                 <div className="p-6 flex items-center gap-3 mb-8">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                         <Sparkles className="w-4 h-4 text-white" />
@@ -65,22 +66,22 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                     <span className="text-lg font-bold text-white">AdminPanel</span>
                 </div>
                 <nav className="flex-1 px-4 space-y-2">
-                    <a href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
+                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
                         <Shield className="w-5 h-5" />
                         Dashboard
-                    </a>
-                    <a href="/admin/lawyers" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 font-medium">
+                    </Link>
+                    <Link href="/admin/lawyers" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 font-medium">
                         <Briefcase className="w-5 h-5" />
                         Verifications
-                    </a>
+                    </Link>
                 </nav>
             </aside>
 
             <main className="lg:ml-64 p-8 pt-24 lg:pt-8 min-h-screen">
-                <a href="/admin/lawyers" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8">
+                <Link href="/admin/lawyers" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8">
                     <ArrowLeft className="w-5 h-5" />
                     Back to Pending List
-                </a>
+                </Link>
 
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
                     <div>
@@ -100,14 +101,14 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                         <div className="flex gap-4">
                             <button
                                 onClick={() => setShowRejectModal(true)}
-                                className="glass-button-secondary text-red-400 hover:border-red-400/50 hover:bg-red-400/10 flex items-center gap-2"
+                                className="btn-secondary text-red-400 hover:border-red-400/50 hover:bg-red-400/10 flex items-center gap-2"
                             >
                                 <XCircle className="w-5 h-5" />
                                 Reject
                             </button>
                             <button
                                 onClick={() => setShowApproveModal(true)}
-                                className="glass-button flex items-center gap-2"
+                                className="btn-primary flex items-center gap-2"
                             >
                                 <CheckCircle className="w-5 h-5" />
                                 Approve Application
@@ -121,7 +122,7 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="glass-card p-6"
+                        className="card p-6"
                     >
                         <h2 className="text-xl font-semibold text-white mb-6">Applicant Details</h2>
                         <div className="space-y-6">
@@ -178,7 +179,7 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="lg:col-span-2 glass-card p-6"
+                        className="lg:col-span-2 card p-6"
                     >
                         <h2 className="text-xl font-semibold text-white mb-6">Submitted Documents</h2>
                         <div className="space-y-4">
@@ -235,7 +236,7 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="glass-card p-8 max-w-md w-full text-center"
+                            className="card p-8 max-w-md w-full text-center"
                         >
                             <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-6">
                                 <CheckCircle className="w-8 h-8 text-emerald-400" />
@@ -247,7 +248,7 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                             <div className="flex gap-4">
                                 <button
                                     onClick={() => setShowApproveModal(false)}
-                                    className="flex-1 glass-button-secondary py-3"
+                                    className="flex-1 btn-secondary py-3"
                                 >
                                     Cancel
                                 </button>
@@ -276,7 +277,7 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="glass-card p-8 max-w-md w-full text-center"
+                            className="card p-8 max-w-md w-full text-center"
                         >
                             <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-6">
                                 <XCircle className="w-8 h-8 text-red-400" />
@@ -286,13 +287,13 @@ export default function LawyerVerificationPage({ params }: { params: Promise<{ i
                                 Please provide a reason for rejection. This will be sent to the applicant.
                             </p>
                             <textarea
-                                className="w-full glass-input h-32 mb-6"
+                                className="w-full input-field h-32 mb-6"
                                 placeholder="Reason for rejection..."
                             ></textarea>
                             <div className="flex gap-4">
                                 <button
                                     onClick={() => setShowRejectModal(false)}
-                                    className="flex-1 glass-button-secondary py-3"
+                                    className="flex-1 btn-secondary py-3"
                                 >
                                     Cancel
                                 </button>
