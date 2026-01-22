@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
     Search,
     TrendingUp,
@@ -12,13 +13,13 @@ import {
     Info,
     Plus,
     Globe,
+    Phone,
 } from "lucide-react";
 import { getTrackerData } from "@/app/actions/tracker";
 import { useEffect } from "react";
 
 
 // Mock tracker data
-interface TrackerEntry { subclass: string; name: string; category: string; avgDays: number; percentiles: { p25: number; p50: number; p75: number; p90: number; }; trend: string; trendChange: number; totalReports: number; lawyerVerified: boolean; lastUpdate: string; }
 const trackerEntries = [
     {
         subclass: "482",
@@ -120,18 +121,34 @@ const trackerEntries = [
 
 const categories = ["All", "Work", "Student", "Family", "Visitor"];
 
-export default function PublicTracker() {
-    const [searchQuery, setSearchQuery] = useState("");
+interface TrackerEntry {
+    subclass: string;
+    name: string;
+    category: string;
+    avgDays: number;
+    percentiles: { p25: number; p50: number; p75: number; p90: number; };
+    trend: string;
+    trendChange: number;
+    totalReports: number;
+    lawyerVerified: boolean;
+    lastUpdate: string;
+}
+
+function PublicTrackerContent() {
+    const searchParams = useSearchParams();
+    const initialQuery = searchParams.get("q") || searchParams.get("subclass") || "";
+
+    const [searchQuery, setSearchQuery] = useState(initialQuery);
     const [selectedCategory, setSelectedCategory] = useState("All");
-    const [sortBy] = useState("subclass");
-    const [trackerEntriesState, setTrackerEntriesState] = useState<unknown[]>(trackerEntries); // Use mock initially, then fetch
+    const [sortBy] = useState("subclass"); // Removed setter as it wasn't used in previous iteration, kept simplistic
+    const [trackerEntriesState, setTrackerEntriesState] = useState<TrackerEntry[]>(trackerEntries);
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getTrackerData();
             if (data && data.length > 0) {
                  // Map database data to UI format
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const formatted = data.map((item: any) => ({
                     subclass: item.visa_subclass,
                     name: `Visa ${item.visa_subclass}`, // Placeholder
@@ -151,7 +168,7 @@ export default function PublicTracker() {
     }, []);
 
 
-    const filteredEntries = (trackerEntriesState as TrackerEntry[])
+    const filteredEntries = trackerEntriesState
         .filter((entry) => {
             const matchesSearch =
                 searchQuery === "" ||
@@ -162,8 +179,6 @@ export default function PublicTracker() {
         })
         .sort((a, b) => {
             if (sortBy === "subclass") return a.subclass.localeCompare(b.subclass);
-            if (sortBy === "processing") return a.avgDays - b.avgDays;
-            if (sortBy === "reports") return b.totalReports - a.totalReports;
             return 0;
         });
 
@@ -248,7 +263,9 @@ export default function PublicTracker() {
                                 <span className="text-sm text-slate-600 font-medium">Lawyer Verified</span>
                             </div>
                             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm">
-                                <span className="text-sm text-slate-600 font-medium">{(trackerEntriesState as TrackerEntry[]).reduce((sum, e) => sum + e.totalReports, 0).toLocaleString()} total reports</span>
+                                <span className="text-sm text-slate-600 font-medium">
+                                    {(trackerEntriesState as TrackerEntry[]).reduce((sum, e) => sum + e.totalReports, 0).toLocaleString()} total reports
+                                </span>
                             </div>
                         </div>
                     </motion.div>
@@ -391,6 +408,13 @@ export default function PublicTracker() {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Contextual Link to Lawyers if processing time is high or just as helpful resource */}
+                                    <div className="mt-4 pt-4 border-t border-slate-100 flex justify-end">
+                                        <Link href={`/lawyers?q=${entry.subclass}`} className="text-sm text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                                            Need help with Subclass {entry.subclass}? Find a Lawyer <Phone className="w-3 h-3" />
+                                        </Link>
+                                    </div>
                                 </motion.div>
                             );
                         })}
@@ -415,5 +439,13 @@ export default function PublicTracker() {
                 </div>
             </main>
         </div>
+    );
+}
+
+export default function PublicTracker() {
+    return (
+        <Suspense fallback={<div>Loading tracker...</div>}>
+            <PublicTrackerContent />
+        </Suspense>
     );
 }

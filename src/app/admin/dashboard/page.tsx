@@ -245,7 +245,8 @@ export default function AdminDashboard() {
                                 </div>
 
                                 <div className="space-y-4">
-                                    {(pendingLawyersState as any[]).map((lawyer, index) => (
+                                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                    {(pendingLawyersState).map((lawyer: any, index) => (
                                         <motion.div
                                             key={lawyer.id}
                                             initial={{ opacity: 0, x: -20 }}

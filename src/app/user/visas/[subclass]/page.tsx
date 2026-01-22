@@ -19,6 +19,7 @@ import {
     DollarSign,
     Phone,
     Globe,
+    TrendingUp,
 } from "lucide-react";
 
 // Mock visa data - in real app this comes from database
@@ -195,7 +196,7 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                             </div>
 
                             <div className="flex flex-col gap-3">
-                                <Link
+                                <a
                                     href={visa.officialUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -203,7 +204,7 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                 >
                                     <ExternalLink className="w-4 h-4" />
                                     Official Page
-                                </Link>
+                                </a>
                             </div>
                         </div>
                     </motion.div>
@@ -243,6 +244,29 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                             Overview
                         </h2>
                         <p className="text-slate-600 leading-relaxed font-medium">{visa.summary}</p>
+                    </motion.div>
+
+                    {/* Check Live Processing Times CTA */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.25 }}
+                        className="mb-6"
+                    >
+                        <Link href={`/tracker?q=${visa.subclass}`} className="block">
+                            <div className="card p-4 bg-indigo-50 border-indigo-100 hover:border-indigo-300 transition flex items-center justify-between group">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-indigo-600 shadow-sm">
+                                        <TrendingUp className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-indigo-900">Check Live Processing Times</h3>
+                                        <p className="text-sm text-indigo-600">See real-time data from other applicants for Subclass {visa.subclass}</p>
+                                    </div>
+                                </div>
+                                <ChevronRight className="w-5 h-5 text-indigo-400 group-hover:text-indigo-600 transition" />
+                            </div>
+                        </Link>
                     </motion.div>
 
                     {/* Eligibility & Requirements Grid */}
@@ -370,11 +394,11 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                     <p className="text-sm text-slate-500 font-medium">Consult with a verified immigration lawyer</p>
                                 </div>
                             </div>
-                            <button className="btn-secondary flex items-center gap-2 text-sm py-3 px-6 bg-white">
+                            <Link href={`/lawyers?q=${visa.subclass}`} className="btn-secondary flex items-center gap-2 text-sm py-3 px-6 bg-white">
                                 <Phone className="w-4 h-4" />
                                 Book Consultation
                                 <ChevronRight className="w-4 h-4" />
-                            </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>

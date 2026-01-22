@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
     Search,
     Sparkles,
@@ -42,16 +43,21 @@ interface Visa {
     processingTime: number;
 }
 
-export default function VisaSearch() {
-    const [searchQuery, setSearchQuery] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+function VisaSearchContent() {
+    const searchParams = useSearchParams();
+    const initialQuery = searchParams.get("q") || "";
+    const initialCategory = searchParams.get("category") || null;
+
+    const [searchQuery, setSearchQuery] = useState(initialQuery);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [visas, setVisas] = useState<Visa[]>([]);
 
     useEffect(() => {
         getVisas().then(data => {
             if (data) {
-                setVisas(data.map((v: { subclass: string; title: string; category: string }) => ({
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                setVisas(data.map((v: any) => ({
                     ...v,
                     name: v.title, // Map title to name
                     popular: ['482', '189', '190'].includes(v.subclass),
@@ -341,5 +347,13 @@ export default function VisaSearch() {
                 </div>
             </main>
         </div>
+    );
+}
+
+export default function VisaSearch() {
+    return (
+        <Suspense fallback={<div>Loading visas...</div>}>
+            <VisaSearchContent />
+        </Suspense>
     );
 }

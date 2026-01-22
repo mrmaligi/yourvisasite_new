@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
     Search,
@@ -98,9 +98,12 @@ const lawyersData = [
 
 const specialtyOptions = ["All Visas", "Skilled Work", "Partner/Family", "Student", "Business"];
 
-export default function LawyersDirectory() {
+function LawyersDirectoryContent() {
     const router = useRouter();
-    const [searchQuery, setSearchQuery] = useState("");
+    const searchParams = useSearchParams();
+    const initialQuery = searchParams.get("q") || searchParams.get("specialty") || "";
+
+    const [searchQuery, setSearchQuery] = useState(initialQuery);
     const [selectedSpecialty, setSelectedSpecialty] = useState("All Visas");
 
     const filteredLawyers = lawyersData.filter((lawyer) => {
@@ -122,7 +125,7 @@ export default function LawyersDirectory() {
                         <div className="w-10 h-10 rounded-lg bg-indigo-900 flex items-center justify-center text-white">
                             <Globe className="w-6 h-6" />
                         </div>
-                        <span className="text-2xl font-serif font-bold text-slate-900">YourVisaSite</span>
+                        <span className="text-2xl font-serif font-bold text-slate-900">VisaIQ</span>
                     </Link>
 
                     <div className="hidden md:flex items-center gap-8">
@@ -324,5 +327,13 @@ export default function LawyersDirectory() {
                 </div>
             </main>
         </div>
+    );
+}
+
+export default function LawyersDirectory() {
+    return (
+        <Suspense fallback={<div>Loading directory...</div>}>
+            <LawyersDirectoryContent />
+        </Suspense>
     );
 }
