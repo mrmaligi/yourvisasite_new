@@ -87,8 +87,6 @@ export default function AdminDashboard() {
                 }
             } catch (error) {
                 console.error('Failed to fetch admin data', error);
-            } finally {
-                setIsLoading(false);
             }
         };
         fetchData();
@@ -247,7 +245,7 @@ export default function AdminDashboard() {
                                 </div>
 
                                 <div className="space-y-4">
-                                    {pendingLawyersState.map((lawyer, index) => (
+                                    {(pendingLawyersState as any[]).map((lawyer, index) => (
                                         <motion.div
                                             key={lawyer.id}
                                             initial={{ opacity: 0, x: -20 }}

@@ -259,7 +259,7 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                 Eligibility Criteria
                             </h2>
                             <ul className="space-y-3">
-                                {visa.eligibilityPoints.map((point) => (
+                                {visa.eligibilityPoints.map((point, i) => (
                                     <li key={i} className="flex items-start gap-3">
                                         <div className="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <CheckCircle className="w-4 h-4 text-emerald-600" />
@@ -282,7 +282,7 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                 Key Requirements
                             </h2>
                             <ul className="space-y-3">
-                                {visa.keyRequirements.map((req) => (
+                                {visa.keyRequirements.map((req, i) => (
                                     <li key={i} className="flex items-start gap-3">
                                         <div className="w-6 h-6 rounded-full bg-cyan-50 flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <span className="text-xs text-cyan-600 font-bold">{i + 1}</span>
@@ -326,7 +326,7 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                             "Common mistakes to avoid",
                                             "Processing time predictions",
                                             "Direct lawyer consultation access"
-                                        ].map((item) => (
+                                        ].map((item, i) => (
                                             <li key={i} className="flex items-center gap-2 text-sm text-indigo-100 font-medium">
                                                 <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                                                 {item}

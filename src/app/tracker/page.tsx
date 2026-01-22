@@ -18,6 +18,7 @@ import { useEffect } from "react";
 
 
 // Mock tracker data
+interface TrackerEntry { subclass: string; name: string; category: string; avgDays: number; percentiles: { p25: number; p50: number; p75: number; p90: number; }; trend: string; trendChange: number; totalReports: number; lawyerVerified: boolean; lastUpdate: string; }
 const trackerEntries = [
     {
         subclass: "482",
@@ -122,6 +123,7 @@ const categories = ["All", "Work", "Student", "Family", "Visitor"];
 export default function PublicTracker() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [sortBy] = useState("subclass");
     const [trackerEntriesState, setTrackerEntriesState] = useState<unknown[]>(trackerEntries); // Use mock initially, then fetch
 
     useEffect(() => {
@@ -149,7 +151,7 @@ export default function PublicTracker() {
     }, []);
 
 
-    const filteredEntries = trackerEntriesState
+    const filteredEntries = (trackerEntriesState as TrackerEntry[])
         .filter((entry) => {
             const matchesSearch =
                 searchQuery === "" ||
@@ -246,7 +248,7 @@ export default function PublicTracker() {
                                 <span className="text-sm text-slate-600 font-medium">Lawyer Verified</span>
                             </div>
                             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm">
-                                <span className="text-sm text-slate-600 font-medium">{trackerEntriesState.reduce((sum, e) => sum + e.totalReports, 0).toLocaleString()} total reports</span>
+                                <span className="text-sm text-slate-600 font-medium">{(trackerEntriesState as TrackerEntry[]).reduce((sum, e) => sum + e.totalReports, 0).toLocaleString()} total reports</span>
                             </div>
                         </div>
                     </motion.div>

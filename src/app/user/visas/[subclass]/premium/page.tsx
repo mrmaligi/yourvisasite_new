@@ -1,7 +1,7 @@
 "use client";
 
-import { Globe, use, useState } from "react";
-import { Globe, motion, AnimatePresence } from "framer-motion";
+import { use, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Globe,
     Sparkles,
@@ -21,7 +21,7 @@ import { Globe,
     Phone,
     Shield,
     Clock,
-    Check,
+    Check, CheckCircle,
 } from "lucide-react";
 
 // Document folder structure
