@@ -2,6 +2,7 @@
 
 import { use, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
@@ -17,13 +18,11 @@ import {
     Plus,
     Download,
     Eye,
-    Trash2,
     ChevronRight,
     Phone,
     Shield,
     Clock,
     Star,
-    Lock,
     Check,
 } from "lucide-react";
 
@@ -154,10 +153,10 @@ export default function PremiumVisaPage({ params }: { params: Promise<{ subclass
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium text-white">Visas</a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">Tracker</a>
-                        <a href="#" className="nav-link text-sm font-medium">Lawyers</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium text-white">Visas</Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">Tracker</Link>
+                        <Link href="#" className="nav-link text-sm font-medium">Lawyers</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -175,15 +174,19 @@ export default function PremiumVisaPage({ params }: { params: Promise<{ subclass
             <main className="pt-28 pb-16 px-6">
                 <div className="max-w-7xl mx-auto">
                     {/* Back Button */}
-                    <motion.a
-                        href={`/user/visas/${resolvedParams.subclass}`}
+                    <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8"
+                        className="mb-8"
                     >
-                        <ArrowLeft className="w-5 h-5" />
-                        Back to Visa Details
-                    </motion.a>
+                        <Link
+                            href={`/user/visas/${resolvedParams.subclass}`}
+                            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            Back to Visa Details
+                        </Link>
+                    </motion.div>
 
                     {/* Header */}
                     <motion.div

@@ -2,6 +2,7 @@
 
 import { use } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
@@ -16,10 +17,7 @@ import {
     Info,
     ChevronRight,
     Star,
-    TrendingUp,
-    Users,
     DollarSign,
-    HelpCircle,
     Phone,
 } from "lucide-react";
 
@@ -141,10 +139,10 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium text-white">Visas</a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">Tracker</a>
-                        <a href="#" className="nav-link text-sm font-medium">Lawyers</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium text-white">Visas</Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">Tracker</Link>
+                        <Link href="#" className="nav-link text-sm font-medium">Lawyers</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -162,15 +160,19 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
             <main className="pt-28 pb-16 px-6">
                 <div className="max-w-5xl mx-auto">
                     {/* Back Button */}
-                    <motion.a
-                        href="/user/visas"
+                    <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8"
+                        className="mb-8"
                     >
-                        <ArrowLeft className="w-5 h-5" />
-                        Back to Visas
-                    </motion.a>
+                        <Link
+                            href="/user/visas"
+                            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            Back to Visas
+                        </Link>
+                    </motion.div>
 
                     {/* Header Section */}
                     <motion.div
@@ -341,13 +343,13 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                         <p className="text-sm text-slate-400 mb-1">One-time payment</p>
                                         <p className="text-4xl font-bold text-white mb-1">$49</p>
                                         <p className="text-sm text-slate-400 mb-4">AUD</p>
-                                        <a
+                                        <Link
                                             href={`/user/visas/${visa.subclass}/premium`}
                                             className="glass-button w-full flex items-center justify-center gap-2"
                                         >
                                             <Lock className="w-4 h-4" />
                                             Unlock Now
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

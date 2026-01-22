@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
     User,
-    FolderOpen,
     FileText,
     Upload,
     Download,
@@ -35,12 +35,21 @@ const CATEGORY_CONFIG: Record<string, { name: string; icon: string; color: strin
     skills: { name: "Skills Assessment", icon: "🎓", color: "from-pink-500 to-rose-500" },
 };
 
+type DocumentType = {
+    id: number;
+    category: string;
+    file_name: string;
+    file_size: string;
+    uploaded_at: string;
+    expiry_date?: string;
+    status: "verified" | "pending" | "required";
+};
+
 export default function UserDocuments() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [showUploadModal, setShowUploadModal] = useState(false);
-    const [documents, setDocuments] = useState<any[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [documents, setDocuments] = useState<DocumentType[]>([]);
     const [isUploading, setIsUploading] = useState(false);
 
     // Fetch documents on mount
@@ -48,11 +57,9 @@ export default function UserDocuments() {
         const fetchDocs = async () => {
             try {
                 const docs = await getDocuments();
-                setDocuments(docs || []);
+                setDocuments((docs as unknown as DocumentType[]) || []);
             } catch (error) {
                 console.error("Failed to fetch documents", error);
-            } finally {
-                setIsLoading(false);
             }
         };
         fetchDocs();
@@ -145,10 +152,10 @@ export default function UserDocuments() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/applications" className="nav-link text-sm font-medium">Applications</a>
-                        <a href="/user/documents" className="nav-link text-sm font-medium text-white">Documents</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/applications" className="nav-link text-sm font-medium">Applications</Link>
+                        <Link href="/user/documents" className="nav-link text-sm font-medium text-white">Documents</Link>
                     </div>
 
                     <div className="flex items-center gap-4">

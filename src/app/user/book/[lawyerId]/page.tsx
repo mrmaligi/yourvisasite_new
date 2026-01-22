@@ -2,6 +2,8 @@
 
 import { use, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import {
     Sparkles,
     Calendar,
@@ -14,8 +16,6 @@ import {
     Video,
     Phone,
     MessageSquare,
-    ChevronLeft,
-    ChevronRight,
 } from "lucide-react";
 
 export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId: string }> }) {
@@ -70,15 +70,19 @@ export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId:
 
             <main className="pt-28 pb-16 px-6">
                 <div className="max-w-6xl mx-auto">
-                    <motion.a
-                        href={`/lawyers/${lawyer.id}`}
+                    <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mb-8"
+                        className="mb-8"
                     >
-                        <ArrowLeft className="w-5 h-5" />
-                        Back to Lawyer Profile
-                    </motion.a>
+                        <Link
+                            href={`/lawyers/${lawyer.id}`}
+                            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            Back to Lawyer Profile
+                        </Link>
+                    </motion.div>
 
                     <div className="grid lg:grid-cols-3 gap-8">
                         {/* Left Column: Booking Options */}
@@ -206,11 +210,14 @@ export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId:
                             >
                                 {/* Lawyer Mini Profile */}
                                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/10">
-                                    <img
-                                        src={lawyer.image}
-                                        alt={lawyer.name}
-                                        className="w-16 h-16 rounded-2xl bg-indigo-500/20"
-                                    />
+                                    <div className="relative w-16 h-16 rounded-2xl overflow-hidden bg-indigo-500/20">
+                                        <Image
+                                            src={lawyer.image}
+                                            alt={lawyer.name}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
                                     <div>
                                         <h3 className="font-semibold text-white">{lawyer.name}</h3>
                                         <p className="text-sm text-slate-400">{lawyer.title}</p>

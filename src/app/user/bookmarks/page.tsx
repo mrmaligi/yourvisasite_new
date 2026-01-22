@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
@@ -115,10 +116,10 @@ export default function UserBookmarks() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/applications" className="nav-link text-sm font-medium">Applications</a>
-                        <a href="/user/bookmarks" className="nav-link text-sm font-medium text-white">Bookmarks</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/applications" className="nav-link text-sm font-medium">Applications</Link>
+                        <Link href="/user/bookmarks" className="nav-link text-sm font-medium text-white">Bookmarks</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -235,13 +236,13 @@ export default function UserBookmarks() {
                                             </div>
                                             <span className="text-slate-500">Saved {visa.savedAt}</span>
                                         </div>
-                                        <a
+                                        <Link
                                             href={`/user/visas/${visa.subclass}`}
                                             className="mt-3 w-full py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm text-white flex items-center justify-center gap-2 transition"
                                         >
                                             View Details
                                             <ChevronRight className="w-4 h-4" />
-                                        </a>
+                                        </Link>
                                     </motion.div>
                                 ))}
                             </div>
@@ -296,18 +297,18 @@ export default function UserBookmarks() {
                                             ))}
                                         </div>
                                         <div className="mt-3 flex items-center gap-2">
-                                            <a
+                                            <Link
                                                 href={`/lawyers/${lawyer.id}`}
                                                 className="flex-1 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm text-white flex items-center justify-center gap-2 transition"
                                             >
                                                 View Profile
-                                            </a>
-                                            <a
+                                            </Link>
+                                            <Link
                                                 href={`/user/book/${lawyer.id}`}
                                                 className="flex-1 py-2 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-sm text-indigo-300 flex items-center justify-center gap-2 transition"
                                             >
                                                 Book Call
-                                            </a>
+                                            </Link>
                                         </div>
                                     </motion.div>
                                 ))}
@@ -384,9 +385,9 @@ export default function UserBookmarks() {
                                 </div>
                                 <h3 className="text-xl font-semibold text-white mb-2">No bookmarks yet</h3>
                                 <p className="text-slate-400 mb-6">Start saving visas, lawyers, and articles to access them here</p>
-                                <a href="/user/visas" className="glass-button inline-flex">
+                                <Link href="/user/visas" className="glass-button inline-flex">
                                     Explore Visas
-                                </a>
+                                </Link>
                             </motion.div>
                         )}
                 </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
@@ -17,9 +18,9 @@ import {
     Trash2,
     ChevronRight,
     Check,
-    X,
     LogOut,
 } from "lucide-react";
+import { signOut } from "@/app/actions/auth";
 
 // Toggle component for settings
 function Toggle({ enabled, onChange }: { enabled: boolean; onChange: () => void }) {
@@ -68,10 +69,10 @@ export default function UserSettings() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/applications" className="nav-link text-sm font-medium">Applications</a>
-                        <a href="/user/profile" className="nav-link text-sm font-medium">Profile</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/applications" className="nav-link text-sm font-medium">Applications</Link>
+                        <Link href="/user/profile" className="nav-link text-sm font-medium">Profile</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -364,7 +365,10 @@ export default function UserSettings() {
                             transition={{ delay: 0.5 }}
                             className="flex justify-between items-center"
                         >
-                            <button className="flex items-center gap-2 px-6 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition">
+                            <button
+                                onClick={() => signOut()}
+                                className="flex items-center gap-2 px-6 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition"
+                            >
                                 <LogOut className="w-5 h-5" />
                                 Sign Out
                             </button>
