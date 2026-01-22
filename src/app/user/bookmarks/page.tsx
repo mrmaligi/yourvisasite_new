@@ -75,7 +75,7 @@ const bookmarkedArticles = [
     },
     {
         title: "Complete Guide to 482 Visa Application",
-        source: "VisaIQ Guide",
+        source: "YourVisaSite Guide",
         savedAt: "4 days ago",
         type: "guide",
     },
@@ -106,13 +106,13 @@ export default function UserBookmarks() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
@@ -123,7 +123,7 @@ export default function UserBookmarks() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -147,7 +147,7 @@ export default function UserBookmarks() {
                                 <h1 className="text-3xl font-bold text-white mb-2">Bookmarks</h1>
                                 <p className="text-slate-400">Your saved visas, lawyers, and articles</p>
                             </div>
-                            <button className="glass-button flex items-center gap-2">
+                            <button className="btn-primary flex items-center gap-2">
                                 <FolderPlus className="w-4 h-4" />
                                 New Collection
                             </button>
@@ -162,10 +162,10 @@ export default function UserBookmarks() {
                                     placeholder="Search bookmarks..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full pl-12 pr-4 py-3 glass rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                    className="w-full pl-12 pr-4 py-3 input-field rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                                 />
                             </div>
-                            <button className="p-3 glass rounded-xl hover:bg-white/10 transition">
+                            <button className="p-3 card rounded-xl hover:bg-white/10 transition">
                                 <Filter className="w-5 h-5 text-slate-400" />
                             </button>
                         </div>
@@ -184,7 +184,7 @@ export default function UserBookmarks() {
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition flex items-center gap-2 ${activeTab === tab.id
                                         ? "bg-indigo-500/20 text-white border border-indigo-500/30"
-                                        : "glass text-slate-400 hover:text-white"
+                                        : "card text-slate-400 hover:text-white"
                                     }`}
                             >
                                 {tab.label}
@@ -213,7 +213,7 @@ export default function UserBookmarks() {
                                     <motion.div
                                         key={visa.subclass}
                                         whileHover={{ scale: 1.02 }}
-                                        className="glass-card p-5 group"
+                                        className="card p-5 group"
                                     >
                                         <div className="flex items-start justify-between mb-3">
                                             <div className="flex items-center gap-3">
@@ -266,7 +266,7 @@ export default function UserBookmarks() {
                                     <motion.div
                                         key={lawyer.id}
                                         whileHover={{ scale: 1.02 }}
-                                        className="glass-card p-5 group"
+                                        className="card p-5 group"
                                     >
                                         <div className="flex items-start justify-between">
                                             <div className="flex items-center gap-4">
@@ -332,7 +332,7 @@ export default function UserBookmarks() {
                                     <motion.div
                                         key={index}
                                         whileHover={{ scale: 1.01 }}
-                                        className="glass-card p-4 flex items-center justify-between group"
+                                        className="card p-4 flex items-center justify-between group"
                                     >
                                         <div className="flex items-center gap-4">
                                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${article.type === "video"
@@ -385,7 +385,7 @@ export default function UserBookmarks() {
                                 </div>
                                 <h3 className="text-xl font-semibold text-white mb-2">No bookmarks yet</h3>
                                 <p className="text-slate-400 mb-6">Start saving visas, lawyers, and articles to access them here</p>
-                                <Link href="/user/visas" className="glass-button inline-flex">
+                                <Link href="/user/visas" className="btn-primary inline-flex">
                                     Explore Visas
                                 </Link>
                             </motion.div>

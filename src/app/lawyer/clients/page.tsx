@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { motion } from "framer-motion";
 import {
@@ -6,13 +7,7 @@ import {
     Bell,
     User,
     Search,
-    Phone,
-    Video,
-    Clock,
-    FileText,
     ChevronRight,
-    Plus,
-    Filter,
 } from "lucide-react";
 
 // Mock clients data
@@ -87,27 +82,27 @@ export default function LawyerClients() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                         <span className="px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 text-xs font-medium">
                             LAWYER
                         </span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/lawyer/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/lawyer/clients" className="nav-link text-sm font-medium text-white">My Clients</a>
-                        <a href="/lawyer/marketing" className="nav-link text-sm font-medium">Marketing</a>
-                        <a href="#" className="nav-link text-sm font-medium">Settings</a>
+                        <Link href="/lawyer/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/lawyer/clients" className="nav-link text-sm font-medium text-white">My Clients</Link>
+                        <Link href="/lawyer/marketing" className="nav-link text-sm font-medium">Marketing</Link>
+                        <Link href="#" className="nav-link text-sm font-medium">Settings</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
@@ -131,7 +126,7 @@ export default function LawyerClients() {
                             <p className="text-slate-400">Manage your active and past consultations</p>
                         </div>
                         <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl glass">
+                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl card">
                                 <span className="text-2xl font-bold text-white">{clients.filter(c => c.status === "Active").length}</span>
                                 <span className="text-sm text-slate-400">Active</span>
                             </div>
@@ -143,7 +138,7 @@ export default function LawyerClients() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="glass-card p-4 mb-6"
+                        className="card p-4 mb-6"
                     >
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex-1 relative">
@@ -176,7 +171,7 @@ export default function LawyerClients() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 * index }}
-                                className="glass-card p-6 block hover:bg-white/5 transition"
+                                className="card p-6 block hover:bg-white/5 transition"
                             >
                                 <div className="flex items-center justify-between gap-4">
                                     <div className="flex items-center gap-4">

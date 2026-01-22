@@ -101,13 +101,13 @@ export default function LawyerConsult() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
@@ -118,7 +118,7 @@ export default function LawyerConsult() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -150,7 +150,7 @@ export default function LawyerConsult() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="glass-card p-4 mb-8"
+                        className="card p-4 mb-8"
                     >
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex-1 relative">
@@ -188,7 +188,7 @@ export default function LawyerConsult() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 * index }}
-                                className={`glass-card p-6 ${lawyer.verified ? "verified-badge" : ""}`}
+                                className={`card p-6 ${lawyer.verified ? "verified-badge" : ""}`}
                             >
                                 <div className="flex items-start gap-4 mb-4">
                                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
@@ -244,14 +244,14 @@ export default function LawyerConsult() {
                                     <div className="flex items-center gap-2">
                                         <Link
                                             href={`/lawyers/${lawyer.id}`}
-                                            className="glass-button-secondary flex items-center gap-2 text-sm py-2 px-4"
+                                            className="btn-secondary flex items-center gap-2 text-sm py-2 px-4"
                                         >
                                             View Profile
                                         </Link>
                                         <button
                                             disabled={!lawyer.available}
                                             className={`flex items-center gap-2 text-sm py-2 px-4 rounded-xl transition ${lawyer.available
-                                                    ? "glass-button"
+                                                    ? "btn-primary"
                                                     : "bg-white/5 text-slate-500 cursor-not-allowed"
                                                 }`}
                                         >

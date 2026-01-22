@@ -68,13 +68,13 @@ export default function MyApplications() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
@@ -85,7 +85,7 @@ export default function MyApplications() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -110,7 +110,7 @@ export default function MyApplications() {
                         </div>
                         <Link
                             href="/user/visas"
-                            className="glass-button flex items-center gap-2 text-sm"
+                            className="btn-primary flex items-center gap-2 text-sm"
                         >
                             <Plus className="w-4 h-4" />
                             Start New Application
@@ -125,7 +125,7 @@ export default function MyApplications() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                className="glass-card p-6"
+                                className="card p-6"
                             >
                                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                     {/* Left - Visa Info */}
@@ -172,7 +172,7 @@ export default function MyApplications() {
                                         {app.paid ? (
                                             <Link
                                                 href={`/user/visas/${app.subclass}/premium`}
-                                                className="glass-button flex items-center gap-2 text-sm py-2 px-4"
+                                                className="btn-primary flex items-center gap-2 text-sm py-2 px-4"
                                             >
                                                 <Upload className="w-4 h-4" />
                                                 Continue
@@ -180,13 +180,13 @@ export default function MyApplications() {
                                         ) : (
                                             <Link
                                                 href={`/user/visas/${app.subclass}`}
-                                                className="glass-button flex items-center gap-2 text-sm py-2 px-4"
+                                                className="btn-primary flex items-center gap-2 text-sm py-2 px-4"
                                             >
                                                 <DollarSign className="w-4 h-4" />
                                                 Unlock $49
                                             </Link>
                                         )}
-                                        <button className="p-2 rounded-xl glass hover:bg-white/10 transition">
+                                        <button className="p-2 rounded-xl card hover:bg-white/10 transition">
                                             <Eye className="w-5 h-5 text-slate-400" />
                                         </button>
                                     </div>
@@ -200,7 +200,7 @@ export default function MyApplications() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
-                        className="mt-8 glass-card p-8 text-center"
+                        className="mt-8 card p-8 text-center"
                     >
                         <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center mx-auto mb-4">
                             <FileText className="w-8 h-8 text-indigo-400" />
@@ -209,7 +209,7 @@ export default function MyApplications() {
                         <p className="text-slate-400 mb-6 max-w-md mx-auto">
                             Browse our complete catalogue of Australian visas with intelligent search and filtering.
                         </p>
-                        <Link href="/user/visas" className="glass-button inline-flex items-center gap-2">
+                        <Link href="/user/visas" className="btn-primary inline-flex items-center gap-2">
                             Browse All Visas
                             <ChevronRight className="w-4 h-4" />
                         </Link>

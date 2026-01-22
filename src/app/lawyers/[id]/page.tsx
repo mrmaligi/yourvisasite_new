@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { use } from "react";
 import { motion } from "framer-motion";
@@ -12,7 +13,6 @@ import {
     Clock,
     Phone,
     Video,
-    MessageSquare,
     Calendar,
     CheckCircle,
     MapPin,
@@ -78,24 +78,24 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/consult" className="nav-link text-sm font-medium text-white">Consult</a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">Tracker</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/consult" className="nav-link text-sm font-medium text-white">Consult</Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">Tracker</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="glass-card p-8 mb-6"
+                        className="card p-8 mb-6"
                     >
                         <div className="flex flex-col md:flex-row gap-6">
                             <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
@@ -166,7 +166,7 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
                             className="lg:col-span-2 space-y-6"
                         >
                             {/* About */}
-                            <div className="glass-card p-6">
+                            <div className="card p-6">
                                 <h2 className="text-lg font-semibold text-white mb-4">About</h2>
                                 <p className="text-slate-300 leading-relaxed">{lawyer.bio}</p>
                             </div>
@@ -178,7 +178,7 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
                                     { label: "Cases Handled", value: lawyer.casesHandled.toLocaleString(), icon: Award },
                                     { label: "Experience", value: lawyer.experience, icon: Clock },
                                 ].map((stat) => (
-                                    <div key={stat.label} className="glass-card p-4 text-center">
+                                    <div key={stat.label} className="card p-4 text-center">
                                         <stat.icon className="w-6 h-6 text-indigo-400 mx-auto mb-2" />
                                         <p className="text-xl font-bold text-white">{stat.value}</p>
                                         <p className="text-xs text-slate-400">{stat.label}</p>
@@ -187,7 +187,7 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
                             </div>
 
                             {/* Specialties */}
-                            <div className="glass-card p-6">
+                            <div className="card p-6">
                                 <h2 className="text-lg font-semibold text-white mb-4">Specialties</h2>
                                 <div className="flex flex-wrap gap-2">
                                     {lawyer.specialties.map((specialty) => (
@@ -202,7 +202,7 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
                             </div>
 
                             {/* Reviews */}
-                            <div className="glass-card p-6">
+                            <div className="card p-6">
                                 <h2 className="text-lg font-semibold text-white mb-4">Client Reviews</h2>
                                 <div className="space-y-4">
                                     {reviews.map((review, index) => (
@@ -233,7 +233,7 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
                             className="space-y-6"
                         >
                             {/* Booking Card */}
-                            <div className="glass-card p-6 sticky top-28">
+                            <div className="card p-6 sticky top-28">
                                 <h2 className="text-lg font-semibold text-white mb-4">Book Consultation</h2>
 
                                 <div className="space-y-3 mb-6">
@@ -279,7 +279,7 @@ export default function LawyerProfile({ params }: { params: Promise<{ id: string
 
                                 <button
                                     onClick={() => window.location.href = `/user/book/${lawyer.id}`}
-                                    className="w-full glass-button py-4"
+                                    className="w-full btn-primary py-4"
                                 >
                                     <Calendar className="w-5 h-5 inline mr-2" />
                                     Select Time Slot

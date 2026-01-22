@@ -57,13 +57,13 @@ export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId:
         <div className="min-h-screen">
             <div className="mesh-background" />
 
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
                 </div>
             </nav>
@@ -90,7 +90,7 @@ export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId:
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="glass-card p-8"
+                                className="card p-8"
                             >
                                 <h1 className="text-3xl font-bold text-white mb-2">Book a Consultation</h1>
                                 <p className="text-slate-400 mb-8">Select a date and time for your session with {lawyer.name}</p>
@@ -195,7 +195,7 @@ export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId:
                                     </h3>
                                     <textarea
                                         placeholder="Briefly describe what you'd like to discuss..."
-                                        className="w-full h-32 glass-input resize-none"
+                                        className="w-full h-32 input-field resize-none"
                                     />
                                 </div>
                             </motion.div>
@@ -206,7 +206,7 @@ export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId:
                             <motion.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="glass-card p-6 sticky top-28"
+                                className="card p-6 sticky top-28"
                             >
                                 {/* Lawyer Mini Profile */}
                                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/10">
@@ -260,7 +260,7 @@ export default function BookLawyerPage({ params }: { params: Promise<{ lawyerId:
                                 </div>
 
                                 <button
-                                    className={`w-full glass-button flex items-center justify-center gap-2 group ${!selectedDate || !selectedTime ? "opacity-50 cursor-not-allowed" : ""
+                                    className={`w-full btn-primary flex items-center justify-center gap-2 group ${!selectedDate || !selectedTime ? "opacity-50 cursor-not-allowed" : ""
                                         }`}
                                     disabled={!selectedDate || !selectedTime}
                                 >

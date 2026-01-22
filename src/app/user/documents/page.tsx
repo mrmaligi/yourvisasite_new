@@ -142,13 +142,13 @@ export default function UserDocuments() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
@@ -159,7 +159,7 @@ export default function UserDocuments() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -185,7 +185,7 @@ export default function UserDocuments() {
                             </div>
                             <button
                                 onClick={() => setShowUploadModal(true)}
-                                className="glass-button flex items-center gap-2"
+                                className="btn-primary flex items-center gap-2"
                             >
                                 <Upload className="w-4 h-4" />
                                 Upload Document
@@ -194,15 +194,15 @@ export default function UserDocuments() {
 
                         {/* Stats */}
                         <div className="grid grid-cols-3 gap-4 mb-6">
-                            <div className="glass-card p-4 text-center">
+                            <div className="card p-4 text-center">
                                 <p className="text-2xl font-bold text-white">{totalDocuments}</p>
                                 <p className="text-sm text-slate-400">Total Documents</p>
                             </div>
-                            <div className="glass-card p-4 text-center">
+                            <div className="card p-4 text-center">
                                 <p className="text-2xl font-bold text-emerald-400">{verifiedDocuments}</p>
                                 <p className="text-sm text-slate-400">Verified</p>
                             </div>
-                            <div className="glass-card p-4 text-center">
+                            <div className="card p-4 text-center">
                                 <p className="text-2xl font-bold text-amber-400">
                                     {totalDocuments - verifiedDocuments}
                                 </p>
@@ -219,10 +219,10 @@ export default function UserDocuments() {
                                     placeholder="Search documents..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full pl-12 pr-4 py-3 glass rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                                    className="w-full pl-12 pr-4 py-3 input-field rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                                 />
                             </div>
-                            <button className="p-3 glass rounded-xl hover:bg-white/10 transition">
+                            <button className="p-3 card rounded-xl hover:bg-white/10 transition">
                                 <Filter className="w-5 h-5 text-slate-400" />
                             </button>
                         </div>
@@ -237,7 +237,7 @@ export default function UserDocuments() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
                                 onClick={() => setSelectedCategory(selectedCategory === category.id ? null : category.id)}
-                                className={`glass-card p-5 cursor-pointer transition-all ${selectedCategory === category.id ? "ring-2 ring-indigo-500/50" : ""
+                                className={`card p-5 cursor-pointer transition-all ${selectedCategory === category.id ? "ring-2 ring-indigo-500/50" : ""
                                     }`}
                             >
                                 <div className="flex items-start justify-between mb-4">
@@ -334,7 +334,7 @@ export default function UserDocuments() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
-                        className="mt-8 glass-card p-5 border border-amber-500/30 bg-amber-500/5"
+                        className="mt-8 card p-5 border border-amber-500/30 bg-amber-500/5"
                     >
                         <div className="flex items-start gap-4">
                             <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center flex-shrink-0">
@@ -374,7 +374,7 @@ export default function UserDocuments() {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="glass-card p-6 max-w-md w-full"
+                            className="card p-6 max-w-md w-full"
                         >
                             <div className="flex items-center justify-between mb-6">
                                 <h2 className="text-xl font-bold text-white">Upload Document</h2>
@@ -416,7 +416,7 @@ export default function UserDocuments() {
                                     <button
                                         type="button"
                                         onClick={() => setShowUploadModal(false)}
-                                        className="flex-1 py-3 rounded-xl glass hover:bg-white/10 text-slate-300 transition"
+                                        className="flex-1 py-3 rounded-xl card hover:bg-white/10 text-slate-300 transition"
                                     >
                                         Cancel
                                     </button>
