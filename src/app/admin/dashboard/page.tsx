@@ -20,13 +20,12 @@ import {
     BarChart3,
     Eye,
     Edit,
-    Trash2,
     Plus,
-    Search,
 } from "lucide-react";
 import Link from "next/link";
-import { getAdminStats, getPendingLawyers, approveLawyer, rejectLawyer } from "@/app/actions/admin";
+import { getAdminStats, getPendingLawyers, approveLawyer } from "@/app/actions/admin";
 import { useState, useEffect } from "react";
+import { signOut } from "@/app/actions/auth";
 
 
 // Mock data for pending lawyer verifications
@@ -193,6 +192,12 @@ export default function AdminDashboard() {
                                 </p>
                             </div>
                             <div className="hidden md:flex items-center gap-3">
+                                <button
+                                    onClick={() => signOut()}
+                                    className="px-6 py-3 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition font-medium text-sm"
+                                >
+                                    Sign Out
+                                </button>
                                 <button className="glass-button-secondary flex items-center gap-2 text-sm py-3 px-5">
                                     <Database className="w-4 h-4" />
                                     Export Data

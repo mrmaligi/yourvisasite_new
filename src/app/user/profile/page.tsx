@@ -17,6 +17,7 @@ import {
     Phone,
     MapPin,
 } from "lucide-react";
+import { signOut } from "@/app/actions/auth";
 
 export default function UserProfile() {
     return (
@@ -91,7 +92,10 @@ export default function UserProfile() {
                                     {item.label}
                                 </button>
                             ))}
-                            <button className="w-full p-4 rounded-xl text-left flex items-center gap-3 glass hover:bg-red-500/10 text-red-400 transition">
+                            <button
+                                onClick={() => signOut()}
+                                className="w-full p-4 rounded-xl text-left flex items-center gap-3 glass hover:bg-red-500/10 text-red-400 transition"
+                            >
                                 <LogOut className="w-5 h-5" />
                                 Sign Out
                             </button>

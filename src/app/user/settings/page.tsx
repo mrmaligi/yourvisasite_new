@@ -20,6 +20,7 @@ import {
     Check,
     LogOut,
 } from "lucide-react";
+import { signOut } from "@/app/actions/auth";
 
 // Toggle component for settings
 function Toggle({ enabled, onChange }: { enabled: boolean; onChange: () => void }) {
@@ -364,7 +365,10 @@ export default function UserSettings() {
                             transition={{ delay: 0.5 }}
                             className="flex justify-between items-center"
                         >
-                            <button className="flex items-center gap-2 px-6 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition">
+                            <button
+                                onClick={() => signOut()}
+                                className="flex items-center gap-2 px-6 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition"
+                            >
                                 <LogOut className="w-5 h-5" />
                                 Sign Out
                             </button>

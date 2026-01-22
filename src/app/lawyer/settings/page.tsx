@@ -19,8 +19,8 @@ import {
     Globe,
     Check,
     ChevronRight,
-    AlertCircle,
 } from "lucide-react";
+import { signOut } from "@/app/actions/auth";
 
 // Toggle component
 function Toggle({ enabled, onChange }: { enabled: boolean; onChange: () => void }) {
@@ -405,13 +405,19 @@ export default function LawyerSettings() {
                             </button>
                         </motion.div>
 
-                        {/* Save Button */}
+                        {/* Sign Out & Save */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
-                            className="flex justify-end"
+                            className="flex justify-between items-center"
                         >
+                            <button
+                                onClick={() => signOut()}
+                                className="px-6 py-3 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition font-medium"
+                            >
+                                Sign Out
+                            </button>
                             <button className="glass-button flex items-center gap-2">
                                 <Save className="w-4 h-4" />
                                 Save Changes
