@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
     Bell,
@@ -15,9 +14,7 @@ import {
     ChevronRight,
     ExternalLink,
     Calendar,
-    Settings,
     Sparkles,
-    ArrowUpRight,
     Play,
     BarChart3,
 } from "lucide-react";
@@ -122,15 +119,15 @@ export default function UserDashboard() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium text-white">
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium text-white">
                             Dashboard
-                        </a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">
+                        </Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">
                             Visas
-                        </a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">
+                        </Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">
                             Tracker
-                        </a>
+                        </Link>
                         <Link href="/lawyers" className="nav-link text-sm font-medium">
                             Lawyers
                         </Link>
@@ -201,9 +198,9 @@ export default function UserDashboard() {
                                             <p className="text-sm text-slate-400">Real-time processing times</p>
                                         </div>
                                     </div>
-                                    <a href="/tracker" className="flex items-center gap-1 text-sm text-indigo-400 hover:text-indigo-300 transition">
+                                    <Link href="/tracker" className="flex items-center gap-1 text-sm text-indigo-400 hover:text-indigo-300 transition">
                                         View All <ChevronRight className="w-4 h-4" />
-                                    </a>
+                                    </Link>
                                 </div>
 
                                 <div className="space-y-4">

@@ -35,7 +35,14 @@ export function handleError(error: unknown): string {
     return 'An unexpected error occurred. Please try again.';
 }
 
-export function handleSupabaseError(error: any): string {
+interface SupabaseError {
+    code?: string;
+    message?: string;
+    details?: string;
+    hint?: string;
+}
+
+export function handleSupabaseError(error: SupabaseError | null): string {
     if (!error) return 'An error occurred';
 
     // Supabase-specific error handling

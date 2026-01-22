@@ -1,14 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
     User,
     FileText,
-    Clock,
-    CheckCircle,
-    AlertCircle,
     ChevronRight,
     Plus,
     Eye,
@@ -80,10 +78,10 @@ export default function MyApplications() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/applications" className="nav-link text-sm font-medium text-white">My Applications</a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">Tracker</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/applications" className="nav-link text-sm font-medium text-white">My Applications</Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">Tracker</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -110,13 +108,13 @@ export default function MyApplications() {
                             <h1 className="text-3xl font-bold text-white mb-2">My Applications</h1>
                             <p className="text-slate-400">Track and manage your visa applications</p>
                         </div>
-                        <a
+                        <Link
                             href="/user/visas"
                             className="glass-button flex items-center gap-2 text-sm"
                         >
                             <Plus className="w-4 h-4" />
                             Start New Application
-                        </a>
+                        </Link>
                     </motion.div>
 
                     {/* Applications List */}
@@ -172,21 +170,21 @@ export default function MyApplications() {
                                     {/* Right - Actions */}
                                     <div className="flex items-center gap-2">
                                         {app.paid ? (
-                                            <a
+                                            <Link
                                                 href={`/user/visas/${app.subclass}/premium`}
                                                 className="glass-button flex items-center gap-2 text-sm py-2 px-4"
                                             >
                                                 <Upload className="w-4 h-4" />
                                                 Continue
-                                            </a>
+                                            </Link>
                                         ) : (
-                                            <a
+                                            <Link
                                                 href={`/user/visas/${app.subclass}`}
                                                 className="glass-button flex items-center gap-2 text-sm py-2 px-4"
                                             >
                                                 <DollarSign className="w-4 h-4" />
                                                 Unlock $49
-                                            </a>
+                                            </Link>
                                         )}
                                         <button className="p-2 rounded-xl glass hover:bg-white/10 transition">
                                             <Eye className="w-5 h-5 text-slate-400" />
@@ -211,10 +209,10 @@ export default function MyApplications() {
                         <p className="text-slate-400 mb-6 max-w-md mx-auto">
                             Browse our complete catalogue of Australian visas with intelligent search and filtering.
                         </p>
-                        <a href="/user/visas" className="glass-button inline-flex items-center gap-2">
+                        <Link href="/user/visas" className="glass-button inline-flex items-center gap-2">
                             Browse All Visas
                             <ChevronRight className="w-4 h-4" />
-                        </a>
+                        </Link>
                     </motion.div>
                 </div>
             </main>

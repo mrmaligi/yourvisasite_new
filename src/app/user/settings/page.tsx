@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
@@ -17,7 +18,6 @@ import {
     Trash2,
     ChevronRight,
     Check,
-    X,
     LogOut,
 } from "lucide-react";
 
@@ -68,10 +68,10 @@ export default function UserSettings() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/applications" className="nav-link text-sm font-medium">Applications</a>
-                        <a href="/user/profile" className="nav-link text-sm font-medium">Profile</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/applications" className="nav-link text-sm font-medium">Applications</Link>
+                        <Link href="/user/profile" className="nav-link text-sm font-medium">Profile</Link>
                     </div>
 
                     <div className="flex items-center gap-4">

@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
     User,
-    Settings,
     Shield,
     CreditCard,
     FileText,
@@ -35,10 +35,10 @@ export default function UserProfile() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/applications" className="nav-link text-sm font-medium">Applications</a>
-                        <a href="/user/profile" className="nav-link text-sm font-medium text-white">Profile</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/applications" className="nav-link text-sm font-medium">Applications</Link>
+                        <Link href="/user/profile" className="nav-link text-sm font-medium text-white">Profile</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -203,9 +203,9 @@ export default function UserProfile() {
                                             <span className="px-2 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs">186</span>
                                         </div>
                                     </div>
-                                    <a href="/user/visas" className="glass-button text-sm">
+                                    <Link href="/user/visas" className="glass-button text-sm">
                                         Add More
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
 

@@ -2,19 +2,15 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
     Sparkles,
     Bell,
     User,
     Search,
     Star,
-    Clock,
-    Phone,
     Video,
-    ChevronRight,
-    Filter,
     Shield,
-    MessageSquare,
 } from "lucide-react";
 
 // Mock lawyers data
@@ -115,10 +111,10 @@ export default function LawyerConsult() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium">Visas</a>
-                        <a href="/user/consult" className="nav-link text-sm font-medium text-white">Consult</a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">Tracker</a>
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium">Visas</Link>
+                        <Link href="/user/consult" className="nav-link text-sm font-medium text-white">Consult</Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">Tracker</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -246,12 +242,12 @@ export default function LawyerConsult() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <a
+                                        <Link
                                             href={`/lawyers/${lawyer.id}`}
                                             className="glass-button-secondary flex items-center gap-2 text-sm py-2 px-4"
                                         >
                                             View Profile
-                                        </a>
+                                        </Link>
                                         <button
                                             disabled={!lawyer.available}
                                             className={`flex items-center gap-2 text-sm py-2 px-4 rounded-xl transition ${lawyer.available

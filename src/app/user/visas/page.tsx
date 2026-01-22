@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
     Search,
     Sparkles,
@@ -17,7 +18,6 @@ import {
     ArrowRight,
     Bell,
     User,
-    Filter,
     X,
 } from "lucide-react";
 import { getVisas } from "@/app/actions/visas";
@@ -36,16 +36,25 @@ const categories = [
 // Initial static categories (kept as config)
 
 
+interface Visa {
+    subclass: string;
+    title: string;
+    category: string;
+    name: string;
+    popular: boolean;
+    processingTime: number;
+}
+
 export default function VisaSearch() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const [visas, setVisas] = useState<any[]>([]);
+    const [visas, setVisas] = useState<Visa[]>([]);
 
     useEffect(() => {
         getVisas().then(data => {
             if (data) {
-                setVisas(data.map(v => ({
+                setVisas(data.map((v: any) => ({
                     ...v,
                     name: v.title, // Map title to name
                     popular: ['482', '189', '190'].includes(v.subclass),
@@ -94,18 +103,18 @@ export default function VisaSearch() {
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/user/dashboard" className="nav-link text-sm font-medium">
+                        <Link href="/user/dashboard" className="nav-link text-sm font-medium">
                             Dashboard
-                        </a>
-                        <a href="/user/visas" className="nav-link text-sm font-medium text-white">
+                        </Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium text-white">
                             Visas
-                        </a>
-                        <a href="/tracker" className="nav-link text-sm font-medium">
+                        </Link>
+                        <Link href="/tracker" className="nav-link text-sm font-medium">
                             Tracker
-                        </a>
-                        <a href="#" className="nav-link text-sm font-medium">
+                        </Link>
+                        <Link href="#" className="nav-link text-sm font-medium">
                             Lawyers
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -296,37 +305,42 @@ export default function VisaSearch() {
                             {filteredVisas
                                 .filter((v) => searchQuery || selectedCategory || v.popular)
                                 .map((visa, index) => (
-                                    <motion.a
+                                    <Link
                                         key={visa.subclass}
                                         href={`/user/visas/${visa.subclass}`}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.1 * index }}
-                                        className="glass-card p-5 group"
+                                        passHref
+                                        legacyBehavior
                                     >
-                                        <div className="flex items-start justify-between mb-4">
-                                            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600/30 to-purple-600/30 flex items-center justify-center">
-                                                <span className="text-lg font-bold text-white">{visa.subclass}</span>
-                                            </div>
-                                            {visa.popular && (
-                                                <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/20 text-amber-400 text-xs font-medium">
-                                                    <Star className="w-3 h-3" />
-                                                    Popular
+                                        <motion.a
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.1 * index }}
+                                            className="glass-card p-5 group block"
+                                        >
+                                            <div className="flex items-start justify-between mb-4">
+                                                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600/30 to-purple-600/30 flex items-center justify-center">
+                                                    <span className="text-lg font-bold text-white">{visa.subclass}</span>
                                                 </div>
-                                            )}
-                                        </div>
-                                        <h3 className="text-white font-semibold mb-2 group-hover:text-indigo-300 transition">
-                                            Subclass {visa.subclass}
-                                        </h3>
-                                        <p className="text-sm text-slate-400 mb-4">{visa.name}</p>
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-2 text-sm text-slate-500">
-                                                <Clock className="w-4 h-4" />
-                                                ~{visa.processingTime} days
+                                                {visa.popular && (
+                                                    <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/20 text-amber-400 text-xs font-medium">
+                                                        <Star className="w-3 h-3" />
+                                                        Popular
+                                                    </div>
+                                                )}
                                             </div>
-                                            <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
-                                        </div>
-                                    </motion.a>
+                                            <h3 className="text-white font-semibold mb-2 group-hover:text-indigo-300 transition">
+                                                Subclass {visa.subclass}
+                                            </h3>
+                                            <p className="text-sm text-slate-400 mb-4">{visa.name}</p>
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2 text-sm text-slate-500">
+                                                    <Clock className="w-4 h-4" />
+                                                    ~{visa.processingTime} days
+                                                </div>
+                                                <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
+                                            </div>
+                                        </motion.a>
+                                    </Link>
                                 ))}
                         </div>
                     </motion.div>
