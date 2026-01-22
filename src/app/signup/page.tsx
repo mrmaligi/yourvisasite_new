@@ -2,14 +2,16 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Globe, Shield, Users, Scale, AlertCircle } from "lucide-react";
+import { Globe, Shield, Users, Scale, AlertCircle, Loader2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useActionState } from "react";
+import { signup } from "@/app/actions/auth";
 
 function SignupForm() {
     const searchParams = useSearchParams();
-    const error = searchParams.get("error");
+    const errorParam = searchParams.get("error");
+    const [state, dispatch, isPending] = useActionState(signup, null);
 
     const handleGoogleSignIn = async () => {
         const supabase = createClient();
@@ -98,12 +100,22 @@ function SignupForm() {
                             <p className="text-slate-600">Join YourVisaSite to manage your application</p>
                         </div>
 
-                        {error && (
+                        {(errorParam || state?.error) && (
                             <div className="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200 flex items-start gap-3">
                                 <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                                 <div className="text-sm">
                                     <span className="font-semibold block mb-1">Registration Error</span>
-                                    {decodeURIComponent(error)}
+                                    {state?.error || decodeURIComponent(errorParam || "")}
+                                </div>
+                            </div>
+                        )}
+
+                        {state?.success && (
+                            <div className="mb-6 p-4 rounded-xl bg-green-50 text-green-700 border border-green-200 flex items-start gap-3">
+                                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                                <div className="text-sm">
+                                    <span className="font-semibold block mb-1">Registration Successful</span>
+                                    {state.message}
                                 </div>
                             </div>
                         )}
@@ -111,6 +123,7 @@ function SignupForm() {
                         {/* Google Sign In Button */}
                         <button
                             onClick={handleGoogleSignIn}
+                            type="button"
                             className="w-full flex items-center justify-center gap-3 p-3 rounded-lg border border-slate-300 hover:bg-slate-50 transition-colors mb-6"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -132,27 +145,40 @@ function SignupForm() {
                         </div>
 
                         {/* Inputs */}
-                        <div className="space-y-4 mb-6">
-                            <input
-                                type="text"
-                                placeholder="Full Name"
-                                className="input-field"
-                            />
-                            <input
-                                type="email"
-                                placeholder="Email address"
-                                className="input-field"
-                            />
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                className="input-field"
-                            />
-                        </div>
+                        <form action={dispatch}>
+                            <div className="space-y-4 mb-6">
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    placeholder="Full Name"
+                                    className="input-field"
+                                    required
+                                />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email address"
+                                    className="input-field"
+                                    required
+                                />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    className="input-field"
+                                    required
+                                    minLength={6}
+                                />
+                            </div>
 
-                        <button className="btn-primary w-full py-3 mb-6 shadow-md hover:shadow-lg">
-                            Create Account
-                        </button>
+                            <button
+                                type="submit"
+                                disabled={isPending}
+                                className="btn-primary w-full py-3 mb-6 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                            >
+                                {isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Create Account"}
+                            </button>
+                        </form>
 
                         <p className="text-center text-sm text-slate-500">
                             Already have an account?{" "}

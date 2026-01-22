@@ -16,13 +16,32 @@ import {
     Loader2,
     Globe,
     Check,
+    AlertCircle,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { useActionState } from "react";
+import { lawyerSignup } from "@/app/actions/auth";
 
 export default function LawyerSignupPage() {
     const [step, setStep] = useState(1);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isComplete, setIsComplete] = useState(false);
+    const [state, dispatch, isPending] = useActionState(lawyerSignup, null);
+
+    // Form State
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        marn: "",
+        firmName: "",
+        location: ""
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
     const handleGoogleSignIn = async () => {
         const supabase = createClient();
@@ -32,7 +51,7 @@ export default function LawyerSignupPage() {
             options: {
                 redirectTo: `${window.location.origin}/auth/callback`,
                 queryParams: {
-                    user_type: 'lawyer' // Pass metadata to handling callback if needed later
+                    user_type: 'lawyer'
                 }
             },
         });
@@ -42,18 +61,7 @@ export default function LawyerSignupPage() {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        // Simulate API call
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setIsComplete(true);
-        }, 2000);
-    };
-
-    if (isComplete) {
+    if (state?.success) {
         return (
             <div className="min-h-screen grid lg:grid-cols-2 bg-slate-50">
                 <div className="hidden lg:flex flex-col justify-center p-16 relative bg-emerald-900">
@@ -77,7 +85,7 @@ export default function LawyerSignupPage() {
                         </div>
                         <h2 className="text-2xl font-bold text-slate-900 mb-2 font-serif">Application Submitted!</h2>
                         <p className="text-slate-600 mb-8 leading-relaxed">
-                            Thank you for applying to join YourVisaSite. Our team will review your credentials and verify your MARN registration. You will receive an email update within 24-48 hours.
+                            {state.message}
                         </p>
                         <Link href="/" className="btn-primary w-full flex items-center justify-center bg-emerald-600 hover:bg-emerald-700">
                             Return Home
@@ -145,6 +153,16 @@ export default function LawyerSignupPage() {
                         <span className={step >= 2 ? "text-slate-900" : "text-slate-500"}>Professional</span>
                     </div>
 
+                    {state?.error && (
+                        <div className="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200 flex items-start gap-3">
+                            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                            <div className="text-sm">
+                                <span className="font-semibold block mb-1">Registration Error</span>
+                                {state.error}
+                            </div>
+                        </div>
+                    )}
+
                     {step === 1 && (
                         <div className="mb-8">
                             {/* Google Sign In Button */}
@@ -171,7 +189,7 @@ export default function LawyerSignupPage() {
                         </div>
                     )}
 
-                    <form onSubmit={step === 2 ? handleSubmit : (e) => { e.preventDefault(); setStep(2); }}>
+                    <form action={dispatch}>
                         <AnimatePresence mode="wait">
                             {step === 1 ? (
                                 <motion.div
@@ -186,14 +204,30 @@ export default function LawyerSignupPage() {
                                             <label className="block text-sm font-semibold text-slate-700 mb-1.5">First Name</label>
                                             <div className="relative">
                                                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                                <input type="text" className="input-field pl-10" placeholder="Jane" required />
+                                                <input
+                                                    name="firstName"
+                                                    value={formData.firstName}
+                                                    onChange={handleChange}
+                                                    type="text"
+                                                    className="input-field pl-10"
+                                                    placeholder="Jane"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                         <div>
                                             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Last Name</label>
                                             <div className="relative">
                                                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                                <input type="text" className="input-field pl-10" placeholder="Doe" required />
+                                                <input
+                                                    name="lastName"
+                                                    value={formData.lastName}
+                                                    onChange={handleChange}
+                                                    type="text"
+                                                    className="input-field pl-10"
+                                                    placeholder="Doe"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -202,7 +236,15 @@ export default function LawyerSignupPage() {
                                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email Address</label>
                                         <div className="relative">
                                             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                            <input type="email" className="input-field pl-10" placeholder="jane@lawfirm.com" required />
+                                            <input
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                type="email"
+                                                className="input-field pl-10"
+                                                placeholder="jane@lawfirm.com"
+                                                required
+                                            />
                                         </div>
                                     </div>
 
@@ -210,17 +252,34 @@ export default function LawyerSignupPage() {
                                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Phone Number</label>
                                         <div className="relative">
                                             <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                            <input type="tel" className="input-field pl-10" placeholder="+61 400 000 000" required />
+                                            <input
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                type="tel"
+                                                className="input-field pl-10"
+                                                placeholder="+61 400 000 000"
+                                                required
+                                            />
                                         </div>
                                     </div>
 
                                     <div>
                                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Create Password</label>
-                                        <input type="password" className="input-field" placeholder="••••••••" required />
+                                        <input
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            type="password"
+                                            className="input-field"
+                                            placeholder="••••••••"
+                                            required
+                                        />
                                     </div>
 
                                     <button
-                                        type="submit"
+                                        type="button"
+                                        onClick={() => setStep(2)}
                                         className="btn-primary w-full mt-6 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 shadow-md"
                                     >
                                         Continue <ArrowRight className="w-4 h-4" />
@@ -234,11 +293,26 @@ export default function LawyerSignupPage() {
                                     exit={{ opacity: 0, x: -20 }}
                                     className="space-y-4"
                                 >
+                                    {/* Hidden fields for Step 1 data */}
+                                    <input type="hidden" name="firstName" value={formData.firstName} />
+                                    <input type="hidden" name="lastName" value={formData.lastName} />
+                                    <input type="hidden" name="email" value={formData.email} />
+                                    <input type="hidden" name="phone" value={formData.phone} />
+                                    <input type="hidden" name="password" value={formData.password} />
+
                                     <div>
                                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">MARN (Migration Agent Registration Number)</label>
                                         <div className="relative">
                                             <Shield className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                            <input type="text" className="input-field pl-10" placeholder="1234567" required />
+                                            <input
+                                                name="marn"
+                                                value={formData.marn}
+                                                onChange={handleChange}
+                                                type="text"
+                                                className="input-field pl-10"
+                                                placeholder="1234567"
+                                                required
+                                            />
                                         </div>
                                     </div>
 
@@ -246,7 +320,15 @@ export default function LawyerSignupPage() {
                                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Firm Name</label>
                                         <div className="relative">
                                             <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                            <input type="text" className="input-field pl-10" placeholder="Doe & Associates" required />
+                                            <input
+                                                name="firmName"
+                                                value={formData.firmName}
+                                                onChange={handleChange}
+                                                type="text"
+                                                className="input-field pl-10"
+                                                placeholder="Doe & Associates"
+                                                required
+                                            />
                                         </div>
                                     </div>
 
@@ -254,7 +336,15 @@ export default function LawyerSignupPage() {
                                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">Office Location</label>
                                         <div className="relative">
                                             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                            <input type="text" className="input-field pl-10" placeholder="Melbourne, VIC" required />
+                                            <input
+                                                name="location"
+                                                value={formData.location}
+                                                onChange={handleChange}
+                                                type="text"
+                                                className="input-field pl-10"
+                                                placeholder="Melbourne, VIC"
+                                                required
+                                            />
                                         </div>
                                     </div>
 
@@ -277,10 +367,10 @@ export default function LawyerSignupPage() {
                                         </button>
                                         <button
                                             type="submit"
-                                            disabled={isSubmitting}
+                                            disabled={isPending}
                                             className="flex-1 btn-primary flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 shadow-md"
                                         >
-                                            {isSubmitting ? (
+                                            {isPending ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
                                             ) : (
                                                 "Submit Application"

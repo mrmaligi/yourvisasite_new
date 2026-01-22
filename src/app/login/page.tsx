@@ -2,14 +2,16 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Globe, Shield, Users, Scale, AlertCircle } from "lucide-react";
+import { Globe, Shield, Users, Scale, AlertCircle, Loader2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useActionState } from "react";
+import { login } from "@/app/actions/auth";
 
 function LoginForm() {
     const searchParams = useSearchParams();
-    const error = searchParams.get("error");
+    const errorParam = searchParams.get("error");
+    const [state, dispatch, isPending] = useActionState(login, null);
 
     const handleGoogleSignIn = async () => {
         const supabase = createClient();
@@ -98,12 +100,12 @@ function LoginForm() {
                             <p className="text-slate-600">Sign in to continue your visa journey</p>
                         </div>
 
-                        {error && (
+                        {(errorParam || state?.error) && (
                             <div className="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200 flex items-start gap-3">
                                 <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                                 <div className="text-sm">
                                     <span className="font-semibold block mb-1">Authentication Error</span>
-                                    {decodeURIComponent(error)}
+                                    {state?.error || decodeURIComponent(errorParam || "")}
                                 </div>
                             </div>
                         )}
@@ -111,6 +113,7 @@ function LoginForm() {
                         {/* Google Sign In Button */}
                         <button
                             onClick={handleGoogleSignIn}
+                            type="button"
                             className="w-full flex items-center justify-center gap-3 p-3 rounded-lg border border-slate-300 hover:bg-slate-50 transition-colors mb-6"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -131,23 +134,33 @@ function LoginForm() {
                             </div>
                         </div>
 
-                        {/* Email Input (placeholder) */}
-                        <div className="space-y-4 mb-6">
-                            <input
-                                type="email"
-                                placeholder="Email address"
-                                className="input-field"
-                            />
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                className="input-field"
-                            />
-                        </div>
+                        {/* Email Form */}
+                        <form action={dispatch}>
+                            <div className="space-y-4 mb-6">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email address"
+                                    className="input-field"
+                                    required
+                                />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
 
-                        <button className="btn-primary w-full py-3 mb-6 shadow-md hover:shadow-lg">
-                            Sign In
-                        </button>
+                            <button
+                                type="submit"
+                                disabled={isPending}
+                                className="btn-primary w-full py-3 mb-6 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                            >
+                                {isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Sign In"}
+                            </button>
+                        </form>
 
                         <p className="text-center text-sm text-slate-500">
                             Don&apos;t have an account?{" "}
