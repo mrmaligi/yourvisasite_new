@@ -4,7 +4,6 @@ import { use } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
-    Sparkles,
     Bell,
     User,
     ArrowLeft,
@@ -19,6 +18,8 @@ import {
     Star,
     DollarSign,
     Phone,
+    Globe,
+    TrendingUp,
 } from "lucide-react";
 
 // Mock visa data - in real app this comes from database
@@ -124,40 +125,38 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
     const visa = visaDetails[resolvedParams.subclass] || { ...defaultDetails, subclass: resolvedParams.subclass, name: `Subclass ${resolvedParams.subclass}` };
 
     return (
-        <div className="min-h-screen">
-            {/* Mesh Background */}
-            <div className="mesh-background" />
+        <div className="min-h-screen bg-slate-50">
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky px-6 py-4 bg-white border-b border-slate-200">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                            <Sparkles className="w-5 h-5 text-white" />
+                        <div className="w-10 h-10 rounded-lg bg-indigo-900 flex items-center justify-center text-white">
+                            <Globe className="w-6 h-6" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-slate-900 font-serif">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
                         <Link href="/user/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
-                        <Link href="/user/visas" className="nav-link text-sm font-medium text-white">Visas</Link>
+                        <Link href="/user/visas" className="nav-link text-sm font-medium text-indigo-700">Visas</Link>
                         <Link href="/tracker" className="nav-link text-sm font-medium">Tracker</Link>
-                        <Link href="#" className="nav-link text-sm font-medium">Lawyers</Link>
+                        <Link href="/lawyers" className="nav-link text-sm font-medium">Lawyers</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
-                            <Bell className="w-5 h-5 text-slate-300" />
+                        <button className="relative p-2 rounded-lg hover:bg-slate-100 transition">
+                            <Bell className="w-5 h-5 text-slate-600" />
                         </button>
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                            <User className="w-5 h-5 text-white" />
+                        <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center border border-indigo-200">
+                            <User className="w-5 h-5 text-indigo-700" />
                         </div>
                     </div>
                 </div>
             </nav>
 
             {/* Main Content */}
-            <main className="pt-28 pb-16 px-6">
+            <main className="py-10 px-6">
                 <div className="max-w-5xl mx-auto">
                     {/* Back Button */}
                     <motion.div
@@ -167,7 +166,7 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                     >
                         <Link
                             href="/user/visas"
-                            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition"
+                            className="inline-flex items-center gap-2 text-slate-500 hover:text-indigo-700 transition font-medium"
                         >
                             <ArrowLeft className="w-5 h-5" />
                             Back to Visas
@@ -178,21 +177,21 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="glass-card p-8 mb-6"
+                        className="card p-8 mb-6 bg-white border-slate-200"
                     >
                         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                             <div className="flex items-start gap-5">
-                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center flex-shrink-0">
-                                    <span className="text-2xl font-bold text-white">{visa.subclass}</span>
+                                <div className="w-20 h-20 rounded-xl bg-indigo-50 flex items-center justify-center flex-shrink-0">
+                                    <span className="text-2xl font-bold text-indigo-900">{visa.subclass}</span>
                                 </div>
                                 <div>
-                                    <span className="inline-block px-3 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs font-medium mb-3">
+                                    <span className="inline-block px-3 py-1 rounded-md bg-indigo-100 text-indigo-700 text-xs font-bold mb-3 border border-indigo-200">
                                         {visa.category}
                                     </span>
-                                    <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                                    <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2 font-serif">
                                         Subclass {visa.subclass}
                                     </h1>
-                                    <p className="text-lg text-slate-300">{visa.name}</p>
+                                    <p className="text-lg text-slate-600 font-medium">{visa.name}</p>
                                 </div>
                             </div>
 
@@ -201,7 +200,7 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                     href={visa.officialUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="glass-button-secondary flex items-center gap-2 text-sm py-3 px-5 justify-center"
+                                    className="btn-secondary flex items-center gap-2 text-sm py-3 px-5 justify-center bg-white"
                                 >
                                     <ExternalLink className="w-4 h-4" />
                                     Official Page
@@ -218,17 +217,17 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                         className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"
                     >
                         {[
-                            { label: "Processing Time", value: visa.processingTime.split(",")[0], icon: Clock, color: "from-cyan-500 to-blue-500" },
-                            { label: "Application Cost", value: visa.cost.split(" ")[0] + " " + visa.cost.split(" ")[1], icon: DollarSign, color: "from-emerald-500 to-green-500" },
-                            { label: "Validity", value: visa.validityPeriod, icon: Shield, color: "from-purple-500 to-pink-500" },
-                            { label: "Visa Type", value: visa.category.split(" ")[0], icon: FileText, color: "from-orange-500 to-amber-500" },
-                        ].map((stat, index) => (
-                            <div key={stat.label} className="glass-card p-5">
-                                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} bg-opacity-20 flex items-center justify-center mb-3`}>
-                                    <stat.icon className="w-5 h-5 text-white" />
+                            { label: "Processing Time", value: visa.processingTime.split(",")[0], icon: Clock, color: "bg-cyan-50 text-cyan-600" },
+                            { label: "Application Cost", value: visa.cost.split(" ")[0] + " " + visa.cost.split(" ")[1], icon: DollarSign, color: "bg-emerald-50 text-emerald-600" },
+                            { label: "Validity", value: visa.validityPeriod, icon: Shield, color: "bg-purple-50 text-purple-600" },
+                            { label: "Visa Type", value: visa.category.split(" ")[0], icon: FileText, color: "bg-amber-50 text-amber-600" },
+                        ].map((stat) => (
+                            <div key={stat.label} className="card p-5 bg-white border-slate-200">
+                                <div className={`w-10 h-10 rounded-lg ${stat.color} flex items-center justify-center mb-3`}>
+                                    <stat.icon className="w-5 h-5" />
                                 </div>
-                                <p className="text-sm text-slate-400 mb-1">{stat.label}</p>
-                                <p className="text-white font-semibold text-sm">{stat.value}</p>
+                                <p className="text-sm text-slate-500 mb-1 font-medium">{stat.label}</p>
+                                <p className="text-slate-900 font-bold text-sm">{stat.value}</p>
                             </div>
                         ))}
                     </motion.div>
@@ -238,13 +237,36 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="glass-card p-6 mb-6"
+                        className="card p-6 mb-6 bg-white border-slate-200"
                     >
-                        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                            <Info className="w-5 h-5 text-indigo-400" />
+                        <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2 font-serif">
+                            <Info className="w-5 h-5 text-indigo-600" />
                             Overview
                         </h2>
-                        <p className="text-slate-300 leading-relaxed">{visa.summary}</p>
+                        <p className="text-slate-600 leading-relaxed font-medium">{visa.summary}</p>
+                    </motion.div>
+
+                    {/* Check Live Processing Times CTA */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.25 }}
+                        className="mb-6"
+                    >
+                        <Link href={`/tracker?q=${visa.subclass}`} className="block">
+                            <div className="card p-4 bg-indigo-50 border-indigo-100 hover:border-indigo-300 transition flex items-center justify-between group">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-indigo-600 shadow-sm">
+                                        <TrendingUp className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-indigo-900">Check Live Processing Times</h3>
+                                        <p className="text-sm text-indigo-600">See real-time data from other applicants for Subclass {visa.subclass}</p>
+                                    </div>
+                                </div>
+                                <ChevronRight className="w-5 h-5 text-indigo-400 group-hover:text-indigo-600 transition" />
+                            </div>
+                        </Link>
                     </motion.div>
 
                     {/* Eligibility & Requirements Grid */}
@@ -254,19 +276,19 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="glass-card p-6"
+                            className="card p-6 bg-white border-slate-200"
                         >
-                            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                                <CheckCircle className="w-5 h-5 text-emerald-400" />
+                            <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2 font-serif">
+                                <CheckCircle className="w-5 h-5 text-emerald-600" />
                                 Eligibility Criteria
                             </h2>
                             <ul className="space-y-3">
-                                {visa.eligibilityPoints.map((point, index) => (
-                                    <li key={index} className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <CheckCircle className="w-4 h-4 text-emerald-400" />
+                                {visa.eligibilityPoints.map((point, i) => (
+                                    <li key={i} className="flex items-start gap-3">
+                                        <div className="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <CheckCircle className="w-4 h-4 text-emerald-600" />
                                         </div>
-                                        <span className="text-slate-300 text-sm">{point}</span>
+                                        <span className="text-slate-600 text-sm font-medium">{point}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -277,19 +299,19 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="glass-card p-6"
+                            className="card p-6 bg-white border-slate-200"
                         >
-                            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                                <FileText className="w-5 h-5 text-cyan-400" />
+                            <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2 font-serif">
+                                <FileText className="w-5 h-5 text-cyan-600" />
                                 Key Requirements
                             </h2>
                             <ul className="space-y-3">
-                                {visa.keyRequirements.map((req, index) => (
-                                    <li key={index} className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <span className="text-xs text-cyan-400 font-medium">{index + 1}</span>
+                                {visa.keyRequirements.map((req, i) => (
+                                    <li key={i} className="flex items-start gap-3">
+                                        <div className="w-6 h-6 rounded-full bg-cyan-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <span className="text-xs text-cyan-600 font-bold">{i + 1}</span>
                                         </div>
-                                        <span className="text-slate-300 text-sm">{req}</span>
+                                        <span className="text-slate-600 text-sm font-medium">{req}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -301,26 +323,25 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="glass-card p-8 relative overflow-hidden"
+                        className="card p-8 relative overflow-hidden bg-indigo-900 border-none shadow-xl"
                     >
-                        {/* Background gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-cyan-600/10" />
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-500/20 to-purple-600/20 rounded-full blur-3xl" />
+                        {/* Background decoration */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-800 rounded-full blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2" />
 
                         <div className="relative z-10">
                             <div className="flex items-center gap-3 mb-4">
-                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center glow-pulse">
+                                <div className="w-12 h-12 rounded-xl bg-amber-500 flex items-center justify-center shadow-lg">
                                     <Lock className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <h2 className="text-xl font-bold text-white">Unlock Premium Access</h2>
-                                    <p className="text-sm text-slate-400">Get comprehensive application guidance</p>
+                                    <h2 className="text-xl font-bold text-white font-serif">Unlock Premium Access</h2>
+                                    <p className="text-sm text-indigo-200 font-medium">Get comprehensive application guidance</p>
                                 </div>
                             </div>
 
                             <div className="grid md:grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <h3 className="text-white font-medium mb-3">Premium includes:</h3>
+                                    <h3 className="text-white font-bold mb-3">Premium includes:</h3>
                                     <ul className="space-y-2">
                                         {[
                                             "Step-by-step application walkthrough",
@@ -329,9 +350,9 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                             "Common mistakes to avoid",
                                             "Processing time predictions",
                                             "Direct lawyer consultation access"
-                                        ].map((item, index) => (
-                                            <li key={index} className="flex items-center gap-2 text-sm text-slate-300">
-                                                <Star className="w-4 h-4 text-amber-400" />
+                                        ].map((item, i) => (
+                                            <li key={i} className="flex items-center gap-2 text-sm text-indigo-100 font-medium">
+                                                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                                                 {item}
                                             </li>
                                         ))}
@@ -339,13 +360,13 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                                 </div>
 
                                 <div className="text-center md:text-right">
-                                    <div className="inline-block p-6 rounded-2xl bg-white/5 border border-white/10">
-                                        <p className="text-sm text-slate-400 mb-1">One-time payment</p>
+                                    <div className="inline-block p-6 rounded-xl bg-white/10 border border-white/20 backdrop-blur-sm">
+                                        <p className="text-sm text-indigo-200 mb-1 font-medium">One-time payment</p>
                                         <p className="text-4xl font-bold text-white mb-1">$49</p>
-                                        <p className="text-sm text-slate-400 mb-4">AUD</p>
+                                        <p className="text-sm text-indigo-200 mb-4">AUD</p>
                                         <Link
                                             href={`/user/visas/${visa.subclass}/premium`}
-                                            className="glass-button w-full flex items-center justify-center gap-2"
+                                            className="w-full bg-white text-indigo-900 font-bold py-3 px-6 rounded-lg hover:bg-indigo-50 transition flex items-center justify-center gap-2"
                                         >
                                             <Lock className="w-4 h-4" />
                                             Unlock Now
@@ -361,23 +382,23 @@ export default function VisaDetailPage({ params }: { params: Promise<{ subclass:
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
-                        className="mt-6 glass-card p-6"
+                        className="mt-6 card p-6 bg-white border-slate-200"
                     >
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                                    <Phone className="w-6 h-6 text-white" />
+                                <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center">
+                                    <Phone className="w-6 h-6 text-indigo-600" />
                                 </div>
                                 <div>
-                                    <h3 className="text-white font-semibold">Need Expert Advice?</h3>
-                                    <p className="text-sm text-slate-400">Consult with a verified immigration lawyer</p>
+                                    <h3 className="text-slate-900 font-bold font-serif">Need Expert Advice?</h3>
+                                    <p className="text-sm text-slate-500 font-medium">Consult with a verified immigration lawyer</p>
                                 </div>
                             </div>
-                            <button className="glass-button-secondary flex items-center gap-2 text-sm py-3 px-6">
+                            <Link href={`/lawyers?q=${visa.subclass}`} className="btn-secondary flex items-center gap-2 text-sm py-3 px-6 bg-white">
                                 <Phone className="w-4 h-4" />
                                 Book Consultation
                                 <ChevronRight className="w-4 h-4" />
-                            </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>

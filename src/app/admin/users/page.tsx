@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -9,9 +10,7 @@ import {
     Search,
     Eye,
     Ban,
-    MoreVertical,
     Download,
-    FileText,
     DollarSign,
     Calendar,
 } from "lucide-react";
@@ -97,27 +96,27 @@ export default function AdminUsers() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                         <span className="px-2 py-1 rounded-lg bg-rose-500/20 text-rose-400 text-xs font-medium">
                             ADMIN
                         </span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/admin/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/admin/lawyers" className="nav-link text-sm font-medium">Lawyers</a>
-                        <a href="/admin/users" className="nav-link text-sm font-medium text-white">Users</a>
-                        <a href="/admin/content" className="nav-link text-sm font-medium">Content</a>
+                        <Link href="/admin/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/admin/lawyers" className="nav-link text-sm font-medium">Lawyers</Link>
+                        <Link href="/admin/users" className="nav-link text-sm font-medium text-white">Users</Link>
+                        <Link href="/admin/content" className="nav-link text-sm font-medium">Content</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center">
@@ -140,7 +139,7 @@ export default function AdminUsers() {
                             <h1 className="text-3xl font-bold text-white mb-2">User Management</h1>
                             <p className="text-slate-400">View and manage platform users</p>
                         </div>
-                        <button className="glass-button-secondary flex items-center gap-2 text-sm">
+                        <button className="btn-secondary flex items-center gap-2 text-sm">
                             <Download className="w-4 h-4" />
                             Export Users
                         </button>
@@ -159,7 +158,7 @@ export default function AdminUsers() {
                             { label: "Premium Revenue", value: `$${totalRevenue}`, icon: DollarSign, color: "amber" },
                             { label: "This Month", value: allUsers.filter(u => u.joined.includes("Jan")).length, icon: Calendar, color: "cyan" },
                         ].map((stat) => (
-                            <div key={stat.label} className="glass-card p-4">
+                            <div key={stat.label} className="card p-4">
                                 <div className="flex items-center justify-between mb-2">
                                     <stat.icon className={`w-5 h-5 text-${stat.color}-400`} />
                                 </div>
@@ -174,7 +173,7 @@ export default function AdminUsers() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
-                        className="glass-card p-4 mb-6"
+                        className="card p-4 mb-6"
                     >
                         <div className="relative">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -193,7 +192,7 @@ export default function AdminUsers() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="glass-card overflow-hidden"
+                        className="card overflow-hidden"
                     >
                         <table className="w-full">
                             <thead>

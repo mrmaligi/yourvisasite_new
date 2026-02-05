@@ -1,18 +1,13 @@
 "use client";
+import Link from "next/link";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
     Sparkles,
     Shield,
-    FileText,
     Edit3,
     Plus,
-    Save,
-    Trash2,
-    CheckCircle,
     Layout,
-    Globe,
     Layers,
     Search,
 } from "lucide-react";
@@ -38,7 +33,7 @@ export default function ContentManagementPage() {
             <div className="mesh-background" />
 
             {/* Sidebar (Simplified Admin) */}
-            <aside className="fixed left-0 top-0 bottom-0 w-64 glass border-r border-white/5 z-40 hidden lg:flex flex-col">
+            <aside className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-white/5 z-40 hidden lg:flex flex-col">
                 <div className="p-6 flex items-center gap-3 mb-8">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                         <Sparkles className="w-4 h-4 text-white" />
@@ -46,18 +41,18 @@ export default function ContentManagementPage() {
                     <span className="text-lg font-bold text-white">AdminPanel</span>
                 </div>
                 <nav className="flex-1 px-4 space-y-2">
-                    <a href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
+                    <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
                         <Shield className="w-5 h-5" />
                         Dashboard
-                    </a>
-                    <a href="/admin/lawyers" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
+                    </Link>
+                    <Link href="/admin/lawyers" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition">
                         <Briefcase className="w-5 h-5" />
                         Verifications
-                    </a>
-                    <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 font-medium">
+                    </Link>
+                    <Link href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-500/10 text-indigo-400 font-medium">
                         <Layout className="w-5 h-5" />
                         Content
-                    </a>
+                    </Link>
                 </nav>
             </aside>
 
@@ -67,13 +62,13 @@ export default function ContentManagementPage() {
                         <h1 className="text-3xl font-bold text-white mb-2">Content Management</h1>
                         <p className="text-slate-400">Manage visa categories and document requirements.</p>
                     </div>
-                    <button className="glass-button flex items-center gap-2">
+                    <button className="btn-primary flex items-center gap-2">
                         <Plus className="w-5 h-5" />
                         Add New Visa
                     </button>
                 </header>
 
-                <div className="glass-card p-6 min-h-[500px]">
+                <div className="card p-6 min-h-[500px]">
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex gap-4 border-b border-white/10">
                             <button
@@ -101,7 +96,7 @@ export default function ContentManagementPage() {
                             <input
                                 type="text"
                                 placeholder="Search..."
-                                className="glass-input py-2 pl-9 text-sm"
+                                className="input-field py-2 pl-9 text-sm"
                             />
                         </div>
                     </div>

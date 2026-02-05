@@ -2,14 +2,16 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Sparkles, Chrome, ArrowRight, Shield, Users, Scale, AlertCircle } from "lucide-react";
+import { Globe, Shield, Users, Scale, AlertCircle, Loader2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useActionState } from "react";
+import { login } from "@/app/actions/auth";
 
 function LoginForm() {
     const searchParams = useSearchParams();
-    const error = searchParams.get("error");
+    const errorParam = searchParams.get("error");
+    const [state, dispatch, isPending] = useActionState(login, null);
 
     const handleGoogleSignIn = async () => {
         const supabase = createClient();
@@ -27,18 +29,15 @@ function LoginForm() {
     };
 
     return (
-        <div className="min-h-screen flex">
-            {/* Mesh Background */}
-            <div className="mesh-background" />
-
+        <div className="min-h-screen flex bg-slate-50">
             {/* Left Side - Branding */}
-            <div className="hidden lg:flex lg:w-1/2 relative p-12 flex-col justify-between">
-                <div className="relative z-10">
+            <div className="hidden lg:flex lg:w-1/2 p-12 flex-col justify-between bg-indigo-900">
+                <div>
                     <div className="flex items-center gap-3 mb-16">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                            <Sparkles className="w-6 h-6 text-white" />
+                        <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-indigo-900">
+                            <Globe className="w-6 h-6" />
                         </div>
-                        <span className="text-2xl font-bold text-white">VisaIQ</span>
+                        <span className="text-2xl font-serif font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <motion.div
@@ -46,14 +45,12 @@ function LoginForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                            Navigate Your
-                            <br />
-                            <span className="gradient-text">Australian Visa</span>
-                            <br />
+                        <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
+                            Navigate Your <br />
+                            Australian Visa <br />
                             Journey
                         </h1>
-                        <p className="text-xl text-slate-400 max-w-md">
+                        <p className="text-xl text-indigo-200 max-w-md">
                             Real-time tracking, expert guidance, and intelligent document management.
                         </p>
                     </motion.div>
@@ -64,18 +61,18 @@ function LoginForm() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="relative z-10 space-y-4"
+                    className="space-y-6"
                 >
                     {[
                         { icon: Shield, text: "Secure document vault with encryption" },
                         { icon: Users, text: "Connect with verified immigration lawyers" },
                         { icon: Scale, text: "Real-time processing time tracker" },
                     ].map((item, index) => (
-                        <div key={index} className="flex items-center gap-3 text-slate-300">
-                            <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
-                                <item.icon className="w-5 h-5 text-indigo-400" />
+                        <div key={index} className="flex items-center gap-4 text-indigo-100">
+                            <div className="w-12 h-12 rounded-xl bg-indigo-800 flex items-center justify-center">
+                                <item.icon className="w-6 h-6 text-white" />
                             </div>
-                            <span>{item.text}</span>
+                            <span className="text-lg">{item.text}</span>
                         </div>
                     ))}
                 </motion.div>
@@ -89,26 +86,26 @@ function LoginForm() {
                     transition={{ delay: 0.3 }}
                     className="w-full max-w-md"
                 >
-                    <div className="glass-card p-8">
+                    <div className="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-slate-200">
                         {/* Mobile Logo */}
                         <div className="lg:hidden flex items-center gap-3 mb-8 justify-center">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                                <Sparkles className="w-5 h-5 text-white" />
+                            <div className="w-10 h-10 rounded-lg bg-indigo-900 flex items-center justify-center text-white">
+                                <Globe className="w-5 h-5" />
                             </div>
-                            <span className="text-xl font-bold text-white">VisaIQ</span>
+                            <span className="text-xl font-serif font-bold text-slate-900">YourVisaSite</span>
                         </div>
 
                         <div className="text-center mb-8">
-                            <h2 className="text-2xl font-bold text-white mb-2">Welcome Back</h2>
-                            <p className="text-slate-400">Sign in to continue your visa journey</p>
+                            <h2 className="text-2xl font-bold text-slate-900 mb-2 font-serif">Welcome Back</h2>
+                            <p className="text-slate-600">Sign in to continue your visa journey</p>
                         </div>
 
-                        {error && (
-                            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start gap-3">
-                                <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                                <div className="text-sm text-red-200">
+                        {(errorParam || state?.error) && (
+                            <div className="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200 flex items-start gap-3">
+                                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                                <div className="text-sm">
                                     <span className="font-semibold block mb-1">Authentication Error</span>
-                                    {decodeURIComponent(error)}
+                                    {state?.error || decodeURIComponent(errorParam || "")}
                                 </div>
                             </div>
                         )}
@@ -116,7 +113,8 @@ function LoginForm() {
                         {/* Google Sign In Button */}
                         <button
                             onClick={handleGoogleSignIn}
-                            className="w-full flex items-center justify-center gap-3 p-4 rounded-2xl bg-white hover:bg-slate-100 transition group mb-6"
+                            type="button"
+                            className="w-full flex items-center justify-center gap-3 p-3 rounded-lg border border-slate-300 hover:bg-slate-50 transition-colors mb-6"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -124,39 +122,49 @@ function LoginForm() {
                                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                             </svg>
-                            <span className="text-slate-800 font-medium">Continue with Google</span>
+                            <span className="text-slate-700 font-medium">Continue with Google</span>
                         </button>
 
                         <div className="relative mb-6">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-white/10"></div>
+                                <div className="w-full border-t border-slate-200"></div>
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-4 bg-[#0a0a1a] text-slate-500">or</span>
+                                <span className="px-4 bg-white text-slate-500">or</span>
                             </div>
                         </div>
 
-                        {/* Email Input (placeholder) */}
-                        <div className="space-y-4 mb-6">
-                            <input
-                                type="email"
-                                placeholder="Email address"
-                                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none transition"
-                            />
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none transition"
-                            />
-                        </div>
+                        {/* Email Form */}
+                        <form action={dispatch}>
+                            <div className="space-y-4 mb-6">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email address"
+                                    className="input-field"
+                                    required
+                                />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
 
-                        <button className="w-full glass-button py-4 mb-6">
-                            Sign In
-                        </button>
+                            <button
+                                type="submit"
+                                disabled={isPending}
+                                className="btn-primary w-full py-3 mb-6 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                            >
+                                {isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : "Sign In"}
+                            </button>
+                        </form>
 
-                        <p className="text-center text-sm text-slate-400">
+                        <p className="text-center text-sm text-slate-500">
                             Don&apos;t have an account?{" "}
-                            <Link href="/signup" className="text-indigo-400 hover:text-indigo-300 transition">
+                            <Link href="/signup" className="text-indigo-600 font-medium hover:text-indigo-800 transition">
                                 Sign up
                             </Link>
                         </p>
@@ -171,29 +179,29 @@ function LoginForm() {
                     >
                         <Link
                             href="/lawyer/signup"
-                            className="glass p-4 rounded-2xl hover:bg-white/10 transition group"
+                            className="p-4 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 hover:shadow-md transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                                    <Scale className="w-5 h-5 text-emerald-400" />
+                                <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-100 transition">
+                                    <Scale className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="text-white font-medium text-sm">Lawyer?</p>
-                                    <p className="text-xs text-slate-400">Join as expert</p>
+                                    <p className="text-slate-900 font-bold text-sm">Lawyer?</p>
+                                    <p className="text-xs text-slate-500">Join as expert</p>
                                 </div>
                             </div>
                         </Link>
                         <Link
                             href="/admin/dashboard"
-                            className="glass p-4 rounded-2xl hover:bg-white/10 transition group"
+                            className="p-4 rounded-xl bg-white border border-slate-200 hover:border-rose-500 hover:shadow-md transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center">
-                                    <Shield className="w-5 h-5 text-rose-400" />
+                                <div className="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-100 transition">
+                                    <Shield className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="text-white font-medium text-sm">Admin?</p>
-                                    <p className="text-xs text-slate-400">Manage platform</p>
+                                    <p className="text-slate-900 font-bold text-sm">Admin?</p>
+                                    <p className="text-xs text-slate-500">Manage platform</p>
                                 </div>
                             </div>
                         </Link>

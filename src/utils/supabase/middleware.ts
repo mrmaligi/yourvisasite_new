@@ -29,34 +29,26 @@ export async function updateSession(request: NextRequest) {
         }
     )
 
-    // IMPORTANT: Avoid writing any logic between createServerClient and
-    // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-    // issues with users being randomly logged out.
-
     const {
         data: { user },
     } = await supabase.auth.getUser()
+
+    console.log(`[Middleware] Path: ${request.nextUrl.pathname}, User: ${!!user}`)
 
     if (
         !user &&
         !request.nextUrl.pathname.startsWith('/login') &&
         !request.nextUrl.pathname.startsWith('/auth') &&
-        request.nextUrl.pathname !== '/' // Allow landing page
+        !request.nextUrl.pathname.startsWith('/signup') &&
+        !request.nextUrl.pathname.startsWith('/lawyer/signup') &&
+        request.nextUrl.pathname !== '/'
     ) {
-        // no user, redirect to login page
+        console.log(`[Middleware] Redirecting to login from ${request.nextUrl.pathname}`)
         const url = request.nextUrl.clone()
         url.pathname = '/login'
         url.searchParams.set('error', 'middleware_no_session')
         return NextResponse.redirect(url)
     }
 
-    // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
-    // creating a new Response object with NextResponse.next() make sure to:
-    // 1. Pass the request in it, like so:
-    //    const myNewResponse = NextResponse.next({ request })
-    // 2. Copy over the cookies, like so:
-    //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
-    // 3. Change the myNewResponse object to fit your needs, but avoid changing
-    //    the cookies!
     return supabaseResponse
 }

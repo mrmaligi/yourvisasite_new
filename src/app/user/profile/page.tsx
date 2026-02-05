@@ -26,13 +26,13 @@ export default function UserProfile() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
@@ -43,7 +43,7 @@ export default function UserProfile() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
@@ -85,7 +85,7 @@ export default function UserProfile() {
                                     key={item.label}
                                     className={`w-full p-4 rounded-xl text-left flex items-center gap-3 transition ${item.active
                                             ? "bg-indigo-500/20 border border-indigo-500/30 text-white"
-                                            : "glass hover:bg-white/10 text-slate-400"
+                                            : "card hover:bg-white/10 text-slate-400"
                                         }`}
                                 >
                                     <item.icon className={`w-5 h-5 ${item.active ? "text-indigo-400" : ""}`} />
@@ -94,7 +94,7 @@ export default function UserProfile() {
                             ))}
                             <button
                                 onClick={() => signOut()}
-                                className="w-full p-4 rounded-xl text-left flex items-center gap-3 glass hover:bg-red-500/10 text-red-400 transition"
+                                className="w-full p-4 rounded-xl text-left flex items-center gap-3 card hover:bg-red-500/10 text-red-400 transition"
                             >
                                 <LogOut className="w-5 h-5" />
                                 Sign Out
@@ -109,7 +109,7 @@ export default function UserProfile() {
                             className="lg:col-span-2 space-y-6"
                         >
                             {/* Profile Photo */}
-                            <div className="glass-card p-6">
+                            <div className="card p-6">
                                 <h2 className="text-lg font-semibold text-white mb-4">Profile Photo</h2>
                                 <div className="flex items-center gap-6">
                                     <div className="relative">
@@ -132,7 +132,7 @@ export default function UserProfile() {
                             </div>
 
                             {/* Personal Info */}
-                            <div className="glass-card p-6">
+                            <div className="card p-6">
                                 <div className="flex items-center justify-between mb-4">
                                     <h2 className="text-lg font-semibold text-white">Personal Information</h2>
                                     <button className="text-sm text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
@@ -197,7 +197,7 @@ export default function UserProfile() {
                             </div>
 
                             {/* Premium Status */}
-                            <div className="glass-card p-6 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
+                            <div className="card p-6 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <h2 className="text-lg font-semibold text-white mb-1">Premium Access</h2>
@@ -207,7 +207,7 @@ export default function UserProfile() {
                                             <span className="px-2 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 text-xs">186</span>
                                         </div>
                                     </div>
-                                    <Link href="/user/visas" className="glass-button text-sm">
+                                    <Link href="/user/visas" className="btn-primary text-sm">
                                         Add More
                                     </Link>
                                 </div>
@@ -215,7 +215,7 @@ export default function UserProfile() {
 
                             {/* Save Button */}
                             <div className="flex justify-end">
-                                <button className="glass-button">
+                                <button className="btn-primary">
                                     Save Changes
                                 </button>
                             </div>

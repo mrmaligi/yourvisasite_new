@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -47,26 +48,26 @@ export default function AdminPricing() {
             <div className="mesh-background" />
 
             {/* Navigation */}
-            <nav className="nav-glass fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav className="nav-sticky fixed top-0 left-0 right-0 z-50 px-6 py-4">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xl font-bold text-white">VisaIQ</span>
+                        <span className="text-xl font-bold text-white">YourVisaSite</span>
                         <span className="px-2 py-1 rounded-lg bg-red-500/20 text-red-400 text-xs font-medium">ADMIN</span>
                     </div>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <a href="/admin/dashboard" className="nav-link text-sm font-medium">Dashboard</a>
-                        <a href="/admin/users" className="nav-link text-sm font-medium">Users</a>
-                        <a href="/admin/lawyers" className="nav-link text-sm font-medium">Lawyers</a>
-                        <a href="/admin/pricing" className="nav-link text-sm font-medium text-white">Pricing</a>
-                        <a href="/admin/content" className="nav-link text-sm font-medium">Content</a>
+                        <Link href="/admin/dashboard" className="nav-link text-sm font-medium">Dashboard</Link>
+                        <Link href="/admin/users" className="nav-link text-sm font-medium">Users</Link>
+                        <Link href="/admin/lawyers" className="nav-link text-sm font-medium">Lawyers</Link>
+                        <Link href="/admin/pricing" className="nav-link text-sm font-medium text-white">Pricing</Link>
+                        <Link href="/admin/content" className="nav-link text-sm font-medium">Content</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button className="relative p-2 rounded-xl glass hover:bg-white/10 transition">
+                        <button className="relative p-2 rounded-xl card hover:bg-white/10 transition">
                             <Bell className="w-5 h-5 text-slate-300" />
                         </button>
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center">
@@ -96,8 +97,8 @@ export default function AdminPricing() {
                         transition={{ delay: 0.1 }}
                         className="grid grid-cols-4 gap-4 mb-8"
                     >
-                        {revenueStats.map((stat, index) => (
-                            <div key={stat.label} className="glass-card p-5">
+                        {revenueStats.map((stat) => (
+                            <div key={stat.label} className="card p-5">
                                 <p className="text-slate-400 text-sm mb-2">{stat.label}</p>
                                 <div className="flex items-end justify-between">
                                     <span className="text-2xl font-bold text-white">{stat.value}</span>
@@ -118,7 +119,7 @@ export default function AdminPricing() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
@@ -165,7 +166,7 @@ export default function AdminPricing() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="glass-card p-6"
+                            className="card p-6"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
@@ -237,7 +238,7 @@ export default function AdminPricing() {
                             </div>
                             <button
                                 onClick={() => setShowNewCode(!showNewCode)}
-                                className="glass-button flex items-center gap-2"
+                                className="btn-primary flex items-center gap-2"
                             >
                                 <Plus className="w-4 h-4" />
                                 New Code
@@ -249,7 +250,7 @@ export default function AdminPricing() {
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: "auto", opacity: 1 }}
-                                className="glass-card p-6 mb-4 overflow-hidden"
+                                className="card p-6 mb-4 overflow-hidden"
                             >
                                 <h3 className="text-white font-medium mb-4">Create New Discount Code</h3>
                                 <div className="grid grid-cols-5 gap-4">
@@ -290,7 +291,7 @@ export default function AdminPricing() {
                         )}
 
                         {/* Codes List */}
-                        <div className="glass-card overflow-hidden">
+                        <div className="card overflow-hidden">
                             <table className="w-full">
                                 <thead>
                                     <tr className="border-b border-white/10">
